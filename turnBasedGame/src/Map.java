@@ -43,4 +43,27 @@ public class Map{
 
         }
     }
+    
+    //searching for the lowest entropy cell aka smallest possible number of tiles
+    private int[] findLowestEntropyCell(){
+        int max = Integer.MAX_VALUE;
+        int[] pos = new int[2];
+
+        for(int x=0; x<size; x++){
+            for(int y=0; y<size; y++){
+                int entropy = mapGrid[x][y].size();
+
+                //ignoring already collapsed cells just to be sure
+                if(entropy > 1 && entropy < max){
+                    max = entropy;
+                    pos[0] = x;
+                    pos[1] = y;
+                }
+            }
+        }
+
+        return pos;
+    }
+
+    
 }
