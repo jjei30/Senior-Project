@@ -36,7 +36,11 @@ public class Map{
         return true;
     }
 
-    public void Generate(){
-        
+    
+
+    public void generateMap(){
+        while(!isCollapsed()){
+
+        }
     }
 }
