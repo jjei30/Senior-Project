@@ -52,11 +52,26 @@ public class Map{
             if(i == n){
                 return tile;
             }
-            return null;
+            
         }
+        return null;
         
     }
-    
+    //Constraint propagation: placing a tile adds constraints to nearby areas, updating all adjacent locations and in turn updates their neighbours
+    private void Propagate(int x, int y){
+        Tile tile = mapGrid[x][y].iterator().next();
+
+        for(int[] direction : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
+            int nx = x + direction[0];
+            int ny = y + direction[1];
+
+            mapGrid[nx][ny].retainAll(Neighbours(tile));
+        }
+    }
+    //tiles that can be neighbours with other tiles
+    private Set<Tile> Neighbours(Tile tile){
+        return null;
+    }
     //searching for the lowest entropy cell aka smallest possible number of tiles
     private int[] findLowestEntropyCell(){
         int max = Integer.MAX_VALUE;
