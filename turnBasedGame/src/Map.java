@@ -43,6 +43,19 @@ public class Map{
 
         }
     }
+    //taking a random element using a set of tiles
+    private Tile pickRandom(Set<Tile> set){
+        int n = random.nextInt(set.size());
+        int i = 0;
+
+        for(Tile tile : set){
+            if(i == n){
+                return tile;
+            }
+            return null;
+        }
+        
+    }
     
     //searching for the lowest entropy cell aka smallest possible number of tiles
     private int[] findLowestEntropyCell(){
