@@ -70,7 +70,22 @@ public class Map{
     }
     //tiles that can be neighbours with other tiles
     private Set<Tile> Neighbours(Tile tile){
-        return null;
+        switch(tile){
+            //grass neighbours anything
+            case X:
+                return Set.of(Tile.X, Tile.M, Tile.Y, Tile.S);
+            //mountain neighbours grass and mountains
+            case M:
+                return Set.of(Tile.X, Tile.M);
+            //trees do not neighbour the sea
+            case Y:
+                return Set.of(Tile.X, Tile.M, Tile.Y);
+            //Sea neighbours grass and water
+            case S:
+                return Set.of(Tile.X, Tile.S);
+            default:
+                return Set.of(Tile.X, Tile.M, Tile.Y, Tile.S);
+        }
     }
     //searching for the lowest entropy cell aka smallest possible number of tiles
     private int[] findLowestEntropyCell(){
