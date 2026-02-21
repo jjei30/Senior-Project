@@ -143,9 +143,8 @@ public class Map{
             for(int y=0; y < size; y++){
                 System.out.print(mapGrid[x][y].iterator().next() + " ");
             }
-        }
-
         System.out.println();
+        }
         
     }
 
