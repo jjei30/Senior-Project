@@ -141,9 +141,11 @@ public class Map{
     public void mapPrint(){
         for(int x = 0; x < size; x++){
             for(int y=0; y < size; y++){
-                System.out.print(mapGrid[x][y].iterator().next() + " " + "\n");
+                System.out.print(mapGrid[x][y].iterator().next() + " ");
             }
         }
+
+        System.out.println();
         
     }
 
