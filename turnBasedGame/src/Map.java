@@ -37,10 +37,22 @@ public class Map{
     }
 
     
-
+//used to generate the map
     public void generateMap(){
+        //until all cells have one tile
         while(!isCollapsed()){
+            int[] cell = findLowestEntropyCell();
+            int x = cell[0];
+            int y = cell[0];
 
+            //choose tile with the possibilities
+            Tile tile = pickRandom(mapGrid[x][y]);
+            //collapsing that cell into a single tile
+            mapGrid[x][y].clear();
+            mapGrid[x][y].add(tile);
+
+            //propagating constraints to neighbour cells
+            Propagate(x, y);
         }
     }
     //taking a random element using a set of tiles
@@ -69,7 +81,7 @@ public class Map{
         }
     }
 
-    //checking if the coordinates are within bounds
+    //checking if the player coordinates are within bounds
     private boolean withinBounds(int x, int y){
         if(x >=0 && x < size && y >= 0 && y < size){
             return true;
