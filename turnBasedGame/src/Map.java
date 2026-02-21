@@ -43,7 +43,7 @@ public class Map{
         while(!isCollapsed()){
             int[] cell = findLowestEntropyCell();
             int x = cell[0];
-            int y = cell[0];
+            int y = cell[1];
 
             //choose tile with the possibilities
             Tile tile = pickRandom(mapGrid[x][y]);
@@ -64,6 +64,7 @@ public class Map{
             if(i == n){
                 return tile;
             }
+            i++;
             
         }
         return null;
@@ -72,13 +73,19 @@ public class Map{
     //Constraint propagation: placing a tile adds constraints to nearby areas, updating all adjacent locations and in turn updates their neighbours
     private void Propagate(int x, int y){
         Tile tile = mapGrid[x][y].iterator().next();
+        
 
         for(int[] direction : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
             int nx = x + direction[0];
             int ny = y + direction[1];
             //only update the neighbours inside the grid and not the ones that have already been collapsed
-            if(withinBounds(x, y) && mapGrid[nx][ny].size() > 1){
-                mapGrid[nx][ny].retainAll(Neighbours(tile));
+            if(withinBounds(nx, ny) && mapGrid[nx][ny].size() > 1){
+                Set<Tile> allowedNeighTiles = Neighbours(tile);
+                mapGrid[nx][ny].retainAll(allowedNeighTiles);
+
+                if(mapGrid[nx][ny].isEmpty()){
+                    mapGrid[nx][ny].addAll(Arrays.asList(Tile.values()));
+                }
             }
         }
     }
@@ -129,6 +136,15 @@ public class Map{
         }
 
         return pos;
+    }
+
+    public void mapPrint(){
+        for(int x = 0; x < size; x++){
+            for(int y=0; y < size; y++){
+                System.out.print(mapGrid[x][y].iterator().next() + " " + "\n");
+            }
+        }
+        
     }
 
     
