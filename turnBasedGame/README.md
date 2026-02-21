@@ -10,7 +10,7 @@ The letters correspond to the following tiles:
 - X = Grass
 - Y = Tree
 - M = Mountain
-- S = Sea
+- S = Water
 
 ## Algorithms
 
