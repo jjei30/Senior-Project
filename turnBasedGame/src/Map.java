@@ -76,12 +76,14 @@ public class Map{
         for(int[] direction : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
             int nx = x + direction[0];
             int ny = y + direction[1];
-
-            mapGrid[nx][ny].retainAll(Neighbours(tile));
+            //only update the neighbours inside the grid and not the ones that have already been collapsed
+            if(withinBounds(x, y) && mapGrid[nx][ny].size() > 1){
+                mapGrid[nx][ny].retainAll(Neighbours(tile));
+            }
         }
     }
 
-    //checking if the player coordinates are within bounds
+    //checking if the coordinates are within bounds
     private boolean withinBounds(int x, int y){
         if(x >=0 && x < size && y >= 0 && y < size){
             return true;
