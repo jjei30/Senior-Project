@@ -68,6 +68,15 @@ public class Map{
             mapGrid[nx][ny].retainAll(Neighbours(tile));
         }
     }
+
+    //checking if the coordinates are within bounds
+    private boolean withinBounds(int x, int y){
+        if(x >=0 && x < size && y >= 0 && y < size){
+            return true;
+        }else{
+            return false;
+        }
+    }
     //tiles that can be neighbours with other tiles
     private Set<Tile> Neighbours(Tile tile){
         switch(tile){
