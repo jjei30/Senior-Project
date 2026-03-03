@@ -3,6 +3,5 @@ public class App {
         Map map = new Map(10); //10x10
         map.generateMap();
         map.mapPrint();
-        
     }
 }
