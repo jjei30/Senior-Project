@@ -1,8 +1,15 @@
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        Map map = new Map(10); //10x10
-        map.generateMap();
-        map.mapPrint();
+        Scanner scanner = new Scanner(System.in);
+        boolean active = true;
+        String input = scanner.nextLine();
+        while(active){
+            Map map = new Map(10); //10x10
+            map.generateMap();
+            map.mapPrint();
+        }
         
     }
 }
