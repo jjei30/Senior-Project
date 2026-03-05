@@ -33,24 +33,8 @@ public class Player {
         if(moveX >= 0 && moveX < mapSize && moveY >= 0 && moveY < mapSize){
             x = moveX;
             y = moveY;
-        }else{
-            System.out.println("Player cannot move out of bound"); //may add a part where when the player moves out of the map a new map is generated
         }
-    }
-
-    public void moveUp(int mapSize){
-        movement(-1, 0, mapSize);
-    }
-
-    public void moveDown(int mapSize){
-        movement(1,0, mapSize);
-    }
-
-    public void moveLeft(int mapSize){
-        movement(0, -1, mapSize);
-    }
-    public void moveRight(int mapSize){
-        movement(0, 1, mapSize);
+        
     }
 
     public boolean isPlayerAlive(){

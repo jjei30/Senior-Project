@@ -157,5 +157,8 @@ public class Map{
         return size;
     }
 
+    public Tile getTile(int x, int y){
+        return mapGrid[x][y].iterator().next();
+    }
     
 }
