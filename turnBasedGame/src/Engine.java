@@ -15,8 +15,11 @@ public class Engine {
     public void gameStart(){
         boolean inGame = true;
 
-        while(inGame = true && player.getHealth() > 0){
-            
+        while(inGame && player.getHealth() > 0){
+
+            map.mapPrint();
+            System.out.println("Health: " + player.getHealth());
+            System.out.println("Use WASD to move. Q to return to menu.");
         }
     }
 }
