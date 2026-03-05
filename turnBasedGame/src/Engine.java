@@ -15,10 +15,10 @@ public class Engine {
     public void gameStart(){
         boolean inGame = true;
 
-        while(inGame && player.getHealth() > 0){
+        while(inGame && player.isPlayerAlive()){
 
-            map.mapPrint();
-            System.out.println("Health: " + player.getHealth());
+            map.mapPrint(player);
+            System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
             System.out.println("Use WASD to move. Q to return to menu.");
 
             String input = scanner.nextLine().toUpperCase();
