@@ -20,6 +20,27 @@ public class Engine {
             map.mapPrint();
             System.out.println("Health: " + player.getHealth());
             System.out.println("Use WASD to move. Q to return to menu.");
+
+            String input = scanner.nextLine().toUpperCase();
+
+            switch(input){
+                case "W":
+                    System.out.println("Moving up");
+                    break;
+                case "A":
+                    System.out.println("Moving left");
+                    break;
+                case "S":
+                    System.out.println("Moving down");
+                    break;
+                case "D":
+                    System.out.println("Moving right");
+                    break;
+                case "Q":
+                    System.out.println("Returning to Main Menu...");
+                    inGame = false;
+            }
+            System.out.println();
         }
     }
 }
