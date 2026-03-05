@@ -25,15 +25,19 @@ public class Engine {
 
             switch(input){
                 case "W":
+                    player.moveUp();
                     System.out.println("Moving up");
                     break;
                 case "A":
+                    player.moveLeft();
                     System.out.println("Moving left");
                     break;
                 case "S":
+                    player.moveDown();
                     System.out.println("Moving down");
                     break;
                 case "D":
+                    player.moveRight();
                     System.out.println("Moving right");
                     break;
                 case "Q":

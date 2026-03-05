@@ -30,6 +30,9 @@ public class Player {
     public void movement(int dx, int dy){
         int moveX = x +dx;
         int moveY = y +dy;
+
+        x = moveX;
+        y = moveY;
     }
 
     public void moveUp(){
