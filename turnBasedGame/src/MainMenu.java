@@ -22,7 +22,7 @@ public class MainMenu {
             
             switch(input){
                 case "1":
-                    System.out.println("New Game"); //placeholder
+                    newGame();
                 break;
                 case "2":
                     System.out.println("Loading game..."); //placeholder
@@ -35,6 +35,11 @@ public class MainMenu {
                     System.out.println("Invalid option");
             }
         }
+    }
+
+    private void newGame(){
+        Engine engine = new Engine();
+        engine.gameStart();
     }
     
 }
