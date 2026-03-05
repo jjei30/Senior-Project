@@ -153,5 +153,9 @@ public class Map{
         
     }
 
+    public int getMapSize(){
+        return size;
+    }
+
     
 }

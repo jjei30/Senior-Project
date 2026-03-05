@@ -27,27 +27,30 @@ public class Player {
         return maxHealth;
     }
     //player movement methods
-    public void movement(int dx, int dy){
+    public void movement(int dx, int dy, int mapSize){
         int moveX = x +dx;
         int moveY = y +dy;
-
-        x = moveX;
-        y = moveY;
+        if(moveX >= 0 && moveX < mapSize && moveY >= 0 && moveY < mapSize){
+            x = moveX;
+            y = moveY;
+        }else{
+            System.out.println("Player cannot move out of bound"); //may add a part where when the player moves out of the map a new map is generated
+        }
     }
 
-    public void moveUp(){
-        movement(-1, 0);
+    public void moveUp(int mapSize){
+        movement(-1, 0, mapSize);
     }
 
-    public void moveDown(){
-        movement(1,0);
+    public void moveDown(int mapSize){
+        movement(1,0, mapSize);
     }
 
-    public void moveLeft(){
-        movement(0, -1);
+    public void moveLeft(int mapSize){
+        movement(0, -1, mapSize);
     }
-    public void moveRight(){
-        movement(0, 1);
+    public void moveRight(int mapSize){
+        movement(0, 1, mapSize);
     }
 
     public boolean isPlayerAlive(){

@@ -25,19 +25,19 @@ public class Engine {
 
             switch(input){
                 case "W":
-                    player.moveUp();
+                    player.moveUp(map.getMapSize());
                     System.out.println("Moving up");
                     break;
                 case "A":
-                    player.moveLeft();
+                    player.moveLeft(map.getMapSize());
                     System.out.println("Moving left");
                     break;
                 case "S":
-                    player.moveDown();
+                    player.moveDown(map.getMapSize());
                     System.out.println("Moving down");
                     break;
                 case "D":
-                    player.moveRight();
+                    player.moveRight(map.getMapSize());
                     System.out.println("Moving right");
                     break;
                 case "Q":
