@@ -17,7 +17,7 @@ public class MainMenu {
             System.out.println("3. Quit");
 
             System.out.print("Please Select an Option: ");
-
+            
             String input = scanner.nextLine();
             
             switch(input){
