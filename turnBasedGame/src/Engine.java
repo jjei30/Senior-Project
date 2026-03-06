@@ -4,12 +4,14 @@ public class Engine {
     private Map map;
     private Player player;
     private Scanner scanner;
+    private Enemy enemy;
 
     public Engine(){
        map = new Map(10);
        map.generateMap();
        player = new Player(0,0);
        scanner = new Scanner(System.in);
+       enemy = new Enemy(5, 5);
     }
 
     public void gameStart(){
@@ -17,7 +19,7 @@ public class Engine {
 
         while(inGame && player.isPlayerAlive()){
 
-            map.mapPrint(player);
+            map.mapPrint(player, enemy);
             System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
             System.out.println("Use WASD to move. Q to return to menu.");
 

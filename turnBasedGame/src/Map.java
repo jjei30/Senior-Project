@@ -138,13 +138,16 @@ public class Map{
         return pos;
     }
 
-    public void mapPrint(Player player){
+    public void mapPrint(Player player, Enemy enemy){
         for(int x = 0; x < size; x++){
             for(int y=0; y < size; y++){
 
                 if(player.getX() == x && player.getY() == y){
                     System.out.print("@" + " "); //player is displayed as @
-                }else{
+                }else if(enemy.getX() == x && player.getY() == y){
+                    System.out.print("#" + " "); //enemy is displayed as #
+                }
+                else{
                     System.out.print(mapGrid[x][y].iterator().next() + " ");
                 }
             }
