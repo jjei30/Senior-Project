@@ -23,4 +23,22 @@ public class Enemy {
     public int getMaxHealth(){
         return maxHealth;
     }
+
+    public void movement(int dx, int dy, int mapSize){
+        int moveX = x +dx;
+        int moveY = y +dy;
+        if(moveX >= 0 && moveX < mapSize && moveY >= 0 && moveY < mapSize){
+            x = moveX;
+            y = moveY;
+        }
+        
+    }
+
+    public boolean isEnemyAlive(){
+        if(health > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
