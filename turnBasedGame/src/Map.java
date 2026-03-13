@@ -107,9 +107,9 @@ public class Map{
             //mountain neighbours grass and mountains
             case M:
                 return Set.of(Tile.X, Tile.M);
-            //trees do not neighbour the sea
+            //trees do not neighbour the sea and the mountains
             case Y:
-                return Set.of(Tile.X, Tile.M, Tile.Y);
+                return Set.of(Tile.X, Tile.Y);
             //Sea neighbours grass and water
             case S:
                 return Set.of(Tile.X, Tile.S);
