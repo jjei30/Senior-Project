@@ -109,7 +109,7 @@ public class Map{
                 return Set.of(Tile.X, Tile.M);
             //trees do not neighbour the sea
             case Y:
-                return Set.of(Tile.X, Tile.Y);
+                return Set.of(Tile.X, Tile.M, Tile.Y);
             //Sea neighbours grass and water
             case S:
                 return Set.of(Tile.X, Tile.S);

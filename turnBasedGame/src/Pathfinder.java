@@ -32,7 +32,7 @@ public class Pathfinder {
             //checking the lowest f(n)
             Node current = openSet.poll();
 
-            if(current.x == goalX && current.y = goalY){
+            if(current.x == goalX && current.y == goalY){
                 return; //placeholder
             }
         }
