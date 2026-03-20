@@ -2,23 +2,18 @@ import java.util.*;
 
 public class Pathfinder {
     static class Node{
-        int x, y;
-        int f;
-        int g;
-        int h;
+        int x, y, g, h, f;
         Node parentNode;
 
         Node(int x, int y){
             this.x = x;
             this.y = y;
         }
-
-        void AStarFormula(){
-            f = g + h;
-        }
     }
+
+    
     //start x,y would be the enemy's pos while goal x,y is where the player is
-    /*public static List<Node> findPath(Map map, int startX,int startY, int goalX, int goalY){
+    public static List<Node> findPath(Map map, int startX,int startY, int goalX, int goalY){
 
         PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(n->n.f));
 
@@ -37,5 +32,5 @@ public class Pathfinder {
                 return; //placeholder
             }
         } 
-    }*/
+    }
 }
