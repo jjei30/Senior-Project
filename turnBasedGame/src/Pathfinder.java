@@ -22,7 +22,7 @@ public class Pathfinder {
 
         Node start = new Node(startX, startY);
         start.g = 0;
-        start.h = 0; //placeholder
+        start.h = 0; //placeholder before i do heuristic
         start.f = start.g + start.h();
 
         openSet.add(start);
@@ -41,7 +41,7 @@ public class Pathfinder {
                 int nx = current.x + direction[0];
                 int ny = current.y + direction[1];
 
-                //map bounds, blocked paths
+                //skipping map bounds, blocked paths, already visited
                 if(nx < 0 || ny < 0 || nx >= mapSize || ny >= mapSize){
                     continue;
                 }else if(map.getTile(nx, ny) == Map.Tile.M || map.getTile(nx, ny) == Map.Tile.S){
@@ -50,8 +50,32 @@ public class Pathfinder {
                     continue;
                 }
 
-                //will continue from here
+                int newG = current.g + 1;
+                int newH = 0; //placeholder
+                int newF = newG + newH;
+
+                Node neighbor = node[nx][ny];
+                
+                //search for new node or even a better pathway
+                if(neighbor == null || neighbor.f > newF){
+
+                    if(neighbor == null){
+                        neighbor = new Node(nx, ny);
+                        node[nx][ny] = neighbor;
+                    }
+
+                    neighbor.g = newG;
+                    neighbor.h = newH;
+                    neighbor.f = newF;
+                    neighbor.parentNode = current;
+
+                    openSet.add(neighbor);
+                }
+
             }
         } 
+        return null; //this means that there is no path
     }
+
+    
 }
