@@ -24,12 +24,15 @@ public class Enemy {
         return maxHealth;
     }
 
-    public void movement(int dx, int dy, int mapSize){
+    public void movement(int dx, int dy, Map map){
         int moveX = x +dx;
         int moveY = y +dy;
+        int mapSize = map.getMapSize();
         if(moveX >= 0 && moveX < mapSize && moveY >= 0 && moveY < mapSize){
-            x = moveX;
-            y = moveY;
+            if(map.getTile(moveX, moveY) != Map.Tile.M || map.getTile(moveX, moveY) != Map.Tile.S){
+                x = moveX;
+                y = moveY;
+            }
         }
         
     }

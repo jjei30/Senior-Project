@@ -20,9 +20,10 @@ public class Pathfinder {
         boolean[][] closedSet = new boolean[mapSize][mapSize];
         Node[][] node = new Node[mapSize][mapSize];
 
+        //initializing the starting node
         Node start = new Node(startX, startY);
         start.g = 0;
-        start.h = 0; //placeholder before i do heuristic
+        start.h = manhattanHeuristic(startX, startY, goalX, goalY); 
         start.f = start.g + start.h;
 
         openSet.add(start);
@@ -32,9 +33,12 @@ public class Pathfinder {
             //checking the lowest f(n)
             Node current = openSet.poll();
 
+            //when goal is reached
             if(current.x == goalX && current.y == goalY){
-                return; //placeholder
+                return pathBuilder(current); //placeholder
             }
+
+            closedSet[current.x][current.y] = true;
 
             //exploring 4 different neighboring directions or already visited
             for(int[] direction : new int[][]{{1,0},{-1,0},{0,1},{0,-1}}){
@@ -51,7 +55,7 @@ public class Pathfinder {
                 }
 
                 int newG = current.g + 1;
-                int newH = 0; //placeholder
+                int newH = manhattanHeuristic(nx, ny, goalX, goalY);
                 int newF = newG + newH;
 
                 Node neighbor = node[nx][ny];

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.List;
 
 public class Engine {
     private Map map;
@@ -14,15 +15,21 @@ public class Engine {
        enemy = new Enemy(5, 5);
     }
 
-    public void gameStart(){
-        boolean inGame = true;
+    boolean inGame = true;
 
+    public void gameStart(){
         while(inGame && player.isPlayerAlive()){
 
             map.mapPrint(player, enemy);
             System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
             System.out.println("Use WASD to move. Q to return to menu.");
+            playerTurn();
+            enemyTurn(enemy, player, map);
+            System.out.println();
+        }
+    }
 
+    public void playerTurn(){
             String input = scanner.nextLine().toUpperCase();
             
             switch(input){
@@ -49,8 +56,6 @@ public class Engine {
                     System.out.println("That's not an option");
                     break;
             }
-            System.out.println();
-        }
     }
 
     public void playerMovement(Player player, Map map, int dx, int dy){
@@ -73,6 +78,21 @@ public class Engine {
         }
 
         player.movement(dx, dy, map.getMapSize());
+
+    }
+
+    public void enemyTurn(Enemy enemy, Player player, Map map){
+        List<Pathfinder.Node> pathFind = new Pathfinder().findPath(map, enemy.getX(), enemy.getY(), player.getX(), player.getY());
+
+        if(pathFind != null && pathFind.size() > 1){
+
+            Pathfinder.Node nextNode = pathFind.get(1);
+
+            int dx = nextNode.x - enemy.getX();
+            int dy = nextNode.y - enemy.getY();
+
+            enemy.movement(dx, dy, map);
+        }
 
     }
 }
