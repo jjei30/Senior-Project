@@ -3,7 +3,7 @@ import java.util.*;
 public class Pathfinder {
     static class Node{
         int x, y, g, h, f;
-        Node parentNode;
+        Node parentNode; //basically to remember where it came from and how it reached the next tile
 
         Node(int x, int y){
             this.x = x;
@@ -23,7 +23,7 @@ public class Pathfinder {
         Node start = new Node(startX, startY);
         start.g = 0;
         start.h = 0; //placeholder before i do heuristic
-        start.f = start.g + start.h();
+        start.f = start.g + start.h;
 
         openSet.add(start);
         node[startX][startY] = start;
@@ -77,5 +77,24 @@ public class Pathfinder {
         return null; //this means that there is no path
     }
 
+    //manhattan distance heuristic, measuring the total number of grid units an agent is away from the goal within the grid, using the formula d = |x1-x2|+|y1-y2|
+    private static int manhattanHeuristic(int currentX, int currentY, int goalX, int goalY){
+        int d = Math.abs(currentX - goalX) + (currentY - goalY);
+        return d;
+    }
+
+    //building path from goal to start
+    private static List<Node> pathBuilder(Node endNode){
+        List<Node> pathNode = new ArrayList<>();
+        Node currentNode = endNode;
+
+        while(currentNode != null){
+            pathNode.add(currentNode);
+            currentNode = currentNode.parentNode; //go backwards to it as it goes from goal to start
+        }
+
+        Collections.reverse(pathNode); //reverse order so it knows where it should head
+        return pathNode;
+    }
     
 }
