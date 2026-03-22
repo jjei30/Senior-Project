@@ -4,6 +4,8 @@ public class Enemy {
     private int y;
     private int health;
     private int maxHealth = 50;
+    private int mana;
+    private int maxMana = 10;
 
     public Enemy(int x, int y){
         this.x = x;
@@ -22,6 +24,12 @@ public class Enemy {
     }
     public int getMaxHealth(){
         return maxHealth;
+    }
+    public int getMana(){
+        return mana;
+    }
+    public int getMaxMana(){
+        return maxMana;
     }
 
     public void movement(int dx, int dy, Map map){
@@ -43,5 +51,19 @@ public class Enemy {
         }else{
             return false;
         }
+    }
+    public void takeDamage(int damage){
+        health -= damage;
+        if(health < 0){
+            health = 0;
+        }
+
+        System.out.println("You took " + damage + " damage!");
+    }
+
+    //healing function will go here as it will depend if the enemy has the potion
+
+    public void manaDrain(int drain){
+        mana -= drain;
     }
 }
