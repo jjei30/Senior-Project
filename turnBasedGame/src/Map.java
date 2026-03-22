@@ -144,7 +144,7 @@ public class Map{
 
                 if(player.getX() == x && player.getY() == y){
                     System.out.print("@" + " "); //player is displayed as @
-                }else if(enemy.getX() == x && player.getY() == y){
+                }else if(enemy.getX() == x && enemy.getY() == y){
                     System.out.print("#" + " "); //enemy is displayed as #
                 }
                 else{

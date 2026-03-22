@@ -6,6 +6,7 @@ public class Engine {
     private Player player;
     private Scanner scanner;
     private Enemy enemy;
+    private Combat combat;
 
     public Engine(){
        map = new Map(10);
@@ -13,6 +14,7 @@ public class Engine {
        player = new Player(0,0);
        scanner = new Scanner(System.in);
        enemy = new Enemy(5, 5);
+       combat = new Combat();
     }
 
     boolean inGame = true;
@@ -24,8 +26,16 @@ public class Engine {
             System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
             System.out.println("Use WASD to move. Q to return to menu.");
             playerTurn();
+            isCombat(player, enemy);
             enemyTurn(enemy, player, map);
+            isCombat(player, enemy);
             System.out.println();
+        }
+    }
+
+    void isCombat(Player player, Enemy enemy){
+        if(player.getX() == enemy.getX() && player.getY() == enemy.getY()){
+            combat.combatMode(player, enemy);
         }
     }
 
