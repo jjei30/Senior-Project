@@ -6,6 +6,9 @@ public class Enemy {
     private int maxHealth = 50;
     private int mana;
     private int maxMana = 10;
+    private int strength;
+    private int dexterity;
+    private int intelligence;
 
     public Enemy(int x, int y){
         this.x = x;
@@ -30,6 +33,15 @@ public class Enemy {
     }
     public int getMaxMana(){
         return maxMana;
+    }
+    public int getStrength(){
+        return strength;
+    }
+    public int getDexterity(){
+        return dexterity;
+    }
+    public int getIntelligence(){
+        return intelligence;
     }
 
     public void movement(int dx, int dy, Map map){
