@@ -5,6 +5,9 @@ public class Player {
     private int maxHealth = 100;
     private int mana;
     private int maxMana = 30;
+    private int strength;
+    private int dexterity;
+    private int intelligence;
 
 
     //for starting position
@@ -13,6 +16,9 @@ public class Player {
         this.y = startingY;
         this.health = maxHealth;
         this.mana = maxMana;
+        this.strength = 0;
+        this.dexterity = 0;
+        this.intelligence = 0;
     }
 
     public int getX(){
@@ -36,6 +42,15 @@ public class Player {
     }
     public int getMaxMana(){
         return maxMana;
+    }
+    public int getStrength(){
+        return strength;
+    }
+    public int getDexterity(){
+        return dexterity;
+    }
+    public int getIntelligence(){
+        return intelligence;
     }
 
     //player movement methods
