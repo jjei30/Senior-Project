@@ -90,4 +90,20 @@ public class Player {
     public void manaDrain(int drain){
         mana -= drain;
     }
+
+    public void lvlUp(){
+        lvl++;
+        //will continue from here
+    }
+
+    public void expGain(int amount){
+        exp += amount;
+        System.out.println("======================");
+        System.out.println("GAINED: " + amount + " XP");
+        System.out.println("======================");
+        //in case in the rare circumstance a player gets two levels up
+        while(exp >= expUntilNextLevel){
+            lvlUp();
+        }
+    }
 }
