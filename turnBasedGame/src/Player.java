@@ -8,6 +8,10 @@ public class Player {
     private int strength;
     private int dexterity;
     private int intelligence;
+    private int lvl = 1;
+    private int exp = 0;
+    private int expUntilNextLevel = 100;
+
 
 
     //for starting position
