@@ -6,11 +6,13 @@ public class Item {
     private boolean mountainPossible;
     private int restoreHealth;
     private int restoreMana;
+    private int value;
 
-    public Item(String name, String type){
+    public Item(String name, String type, String desc, int value){
         this.name = name;
         this.type = type;
         this.desc = desc;
+        this.value = value;
     }
 
     public String getName(){
@@ -23,6 +25,10 @@ public class Item {
 
     public String getDesc(){
         return desc;
+    }
+
+    public int getValue(){
+        return value;
     }
 
     public boolean isWaterPossible(){
