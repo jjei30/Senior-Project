@@ -1,3 +1,6 @@
+import java.lang.Math;
+import java.util.Scanner;
+
 public class Player {
     private int x;
     private int y;
@@ -92,8 +95,41 @@ public class Player {
     }
 
     public void lvlUp(){
+        Scanner scanner = new Scanner(System.in);
         lvl++;
-        //will continue from here
+        expUntilNextLevel = 100*(int)(Math.pow(2,lvl-1)); 
+        maxHealth += 10;
+        health += 10;
+        maxMana += 5;
+        mana += 5;
+        boolean isConfirmed = false;
+        while(isConfirmed){
+            System.out.println("===============================\n" 
+                            + "LEVEL "+ lvl + " REACHED!\n"
+                            + "===============================\n"
+                            + "What would you like to upgrade?\n"
+                            + "[1. STRENGTH] [2. DEXTERITY] [3. INTELLIGENCE]\n"
+                            + "===============================\n");
+            String input = scanner.nextLine();
+            int newValueUpgrade;
+
+            switch(input){
+                case "1":
+                    System.out.println("Are you sure you want to upgrade strength?\n"
+                                        + "[Yes]" + "[No]");
+                    String secondInput = scanner.nextLine().toUpperCase();
+                    if(secondInput == "YES"){
+                        newValueUpgrade = strength+1;
+                        System.out.println("Strength has been upgraded from " + strength + " to " + newValueUpgrade);
+                        strength = newValueUpgrade;
+                        isConfirmed = true;
+                        break;
+                    }else if(secondInput == "NO"){
+                        break;
+                    }
+            }
+        }
+        
     }
 
     public void expGain(int amount){
@@ -101,7 +137,7 @@ public class Player {
         System.out.println("======================");
         System.out.println("GAINED: " + amount + " XP");
         System.out.println("======================");
-        //in case in the rare circumstance a player gets two levels up
+        //in case in the rare circumstance a player gets two or more levels up
         while(exp >= expUntilNextLevel){
             lvlUp();
         }

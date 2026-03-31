@@ -7,6 +7,7 @@ public class Engine {
     private Scanner scanner;
     private Enemy enemy;
     private Combat combat;
+    private String action;
 
     public Engine(){
        map = new Map(10);
@@ -20,16 +21,19 @@ public class Engine {
     boolean inGame = true;
 
     public void gameStart(){
+        map.mapPrint(player, enemy);
+        System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth() + " | " + "Mana: " + player.getMana() + "/" + player.getMaxMana());
+        System.out.println("Use WASD to move. Q to return to menu.");
         while(inGame && player.isPlayerAlive()){
-
-            map.mapPrint(player, enemy);
-            System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
-            System.out.println("Use WASD to move. Q to return to menu.");
             playerTurn();
             isCombat(player, enemy);
             enemyTurn(enemy, player, map);
             isCombat(player, enemy);
             System.out.println();
+            map.mapPrint(player, enemy);
+            System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
+            System.out.println(action);
+            System.out.println("Use WASD to move. Q to return to menu.");
         }
     }
 
@@ -44,26 +48,27 @@ public class Engine {
             
             switch(input){
                 case "W":
+                    action = "------Moving up------";
                     playerMovement(player, map, -1, 0);
-                    System.out.println("Moving up");
                     break;
                 case "A":
+                    action = "------Moving left------";
                     playerMovement(player, map, 0, -1);
-                    System.out.println("Moving left");
                     break;
                 case "S":
+                    action = "------Moving down------";
                     playerMovement(player, map, 1, 0);
-                    System.out.println("Moving down");
                     break;
                 case "D":
+                    action = "------Moving right------";
                     playerMovement(player, map, 0, 1);
-                    System.out.println("Moving right");
                     break;
                 case "Q":
-                    System.out.println("Returning to Main Menu...");
+                    System.out.println("------Returning to Main Menu...------");
                     inGame = false;
+                    break;
                 default:
-                    System.out.println("That's not an option");
+                    System.out.println("------That's not an option------");
                     break;
             }
     }
@@ -105,5 +110,12 @@ public class Engine {
         }
 
     }
-
+     //just to add some delay for gaming experience purposes
+    private void pause(int milliseconds){
+        try{
+            Thread.sleep(milliseconds);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+    }
 }

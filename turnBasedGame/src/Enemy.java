@@ -70,7 +70,7 @@ public class Enemy {
             health = 0;
         }
 
-        System.out.println("You took " + damage + " damage!");
+        System.out.println("Enemy took " + damage + " damage!");
     }
 
     //healing function will go here as it will depend if the enemy has the potion
