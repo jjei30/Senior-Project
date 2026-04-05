@@ -1,8 +1,12 @@
+package Map;
 import java.util.*;
+
+import Enemy.Enemy;
+import Player.Player;
 
 public class Map{
     //X is grass, S is water, M is mountain, Y is tree
-    enum Tile{
+    public enum Tile{
         X, S, M, Y
     }
 

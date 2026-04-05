@@ -1,3 +1,4 @@
+package Items;
 public class GameItem {
     public static Item smallHealthPotion(){
         Item smallHealthPotion = new Item("Small Health Potion", "Consumable", "A potion that restores 20hp!", 5);

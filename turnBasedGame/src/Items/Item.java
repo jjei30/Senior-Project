@@ -1,11 +1,8 @@
+package Items;
 public class Item {
     private String name;
     private String type;
     private String desc;
-    private boolean waterPossible;
-    private boolean mountainPossible;
-    private int restoreHealth;
-    private int restoreMana;
     private int value;
 
     public Item(String name, String type, String desc, int value){

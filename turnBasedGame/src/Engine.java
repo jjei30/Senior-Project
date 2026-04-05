@@ -1,4 +1,10 @@
 import java.util.Scanner;
+
+import Enemy.Enemy;
+import Enemy.Pathfinder;
+import Map.Map;
+import Player.Player;
+
 import java.util.List;
 
 public class Engine {
@@ -103,8 +109,8 @@ public class Engine {
 
             Pathfinder.Node nextNode = pathFind.get(1);
 
-            int dx = nextNode.x - enemy.getX();
-            int dy = nextNode.y - enemy.getY();
+            int dx = nextNode.getX() - enemy.getX();
+            int dy = nextNode.getY()- enemy.getY();
 
             enemy.movement(dx, dy, map);
         }

@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import Enemy.Enemy;
+import Player.Player;
+
 public class Combat {
     private Scanner scanner = new Scanner(System.in);
     String action;

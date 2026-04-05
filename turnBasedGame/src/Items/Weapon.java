@@ -1,8 +1,9 @@
+package Items;
 public class Weapon extends Item {
     private int dmg;
 
-    public Weapons(String name, String description, int value, int dmg){
-        super(name, "Weapon",description,value);
+    public Weapon(String name, String desc, int value, int dmg){
+        super(name, "Weapon",desc,value);
         this.dmg = dmg;
     }
 

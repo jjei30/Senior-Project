@@ -1,13 +1,23 @@
+package Enemy;
 import java.util.*;
+import Map.Map;
 
 public class Pathfinder {
-    static class Node{
+    public static class Node{
         int x, y, g, h, f;
         Node parentNode; //basically to remember where it came from and how it reached the next tile
 
-        Node(int x, int y){
+        public Node(int x, int y){
             this.x = x;
             this.y = y;
+        }
+
+        public int getX(){
+            return x;
+        }
+
+        public int getY(){
+            return y;
         }
     }
 

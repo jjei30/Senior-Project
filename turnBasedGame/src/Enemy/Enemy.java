@@ -1,3 +1,7 @@
+package Enemy;
+import Map.Map;
+import Map.Map.Tile;
+
 public class Enemy {
     
     private int x;
