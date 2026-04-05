@@ -31,23 +31,4 @@ public class Item {
         return value;
     }
 
-    public boolean isWaterPossible(){
-        return waterPossible;
-    }
-
-    public boolean isMountainPossible(){
-        return mountainPossible;
-    }
-
-    public void setHealthRestore(int amount){
-        restoreHealth = amount;
-    }
-
-    public void setWaterPossible(boolean bool){
-        waterPossible = bool;
-    }
-
-    public void setMountainPossible(boolean bool){
-        mountainPossible = bool;
-    }
 }

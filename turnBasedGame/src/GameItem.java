@@ -24,4 +24,9 @@ public class GameItem {
         waterBoots.setWaterPossible(true);
         return waterBoots;
     }
+    public static Item woodenSword(){
+        Item woodenSword = new Item("Wooden Sword", "Weapon", "A simple wooden sword, it could still hurt someone", 15);
+        
+        return woodenSword;
+    }
 }
