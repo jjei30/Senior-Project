@@ -23,7 +23,7 @@ public class Pathfinder {
 
     
     //start x,y would be the enemy's pos while goal x,y is where the player is
-    public static List<Node> findPath(Map map, int startX,int startY, int goalX, int goalY){
+    public List<Node> findPath(Map map, int startX,int startY, int goalX, int goalY){
         int mapSize = map.getMapSize();
         PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(n->n.f));
 
