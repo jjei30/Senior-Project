@@ -5,9 +5,9 @@ import Enemy.Enemy;
 import Player.Player;
 
 public class Map{
-    //X is grass, S is water, M is mountain, Y is tree
+    //X is grass, S is water, M is mountain, Y is tree, D is dock
     public enum Tile{
-        X, S, M, Y
+        X, S, M, Y, D
     }
 
     
@@ -19,13 +19,42 @@ public class Map{
         this.size = size;
         mapGrid = new HashSet[size][size];
 
-        //initializing all possible tiles
+        //initializing all possible tiles (except for sea which surrounds the coast and making sure that it is surrounded by the sea, also reducing the amount of mountains near the coast
         for(int x=0; x < size; x++){
             for(int y=0; y < size; y++){
-                mapGrid[x][y] = new HashSet<>(Arrays.asList(Tile.values()));
+                if(x == 0 || y == 0 || x == size-1 || y == size-1){
+                    mapGrid[x][y] = new HashSet<>(Set.of(Tile.S));
+                }else{
+                    mapGrid[x][y] = new HashSet<>(Arrays.asList(Tile.X, Tile.M, Tile.Y));
+
+                    if(x == 1 || y == 1 || x == size-2 || y==size-2){
+                        mapGrid[x][y].remove(Tile.M);
+                    }
+                }
+                
             }
         }
         
+    }
+
+    public void placeDock(){
+        while(true){
+            int x = random.nextInt(size);
+            int y = random.nextInt(size);
+
+            //will be on the sea
+            if(getTile(x,y) == Tile.S){
+                for(int[] m : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
+                    int nx = x + m[0];
+                    int ny = y + m[1];
+                    
+                    if(withinBounds(nx, ny)){
+                        Tile neighbor = getTile(nx, ny);
+                       
+                    }
+                }
+            }
+        }
     }
 
     //check for every cell if it has been reduced to a tile
@@ -88,7 +117,7 @@ public class Map{
                 mapGrid[nx][ny].retainAll(allowedNeighTiles);
 
                 if(mapGrid[nx][ny].isEmpty()){
-                    mapGrid[nx][ny].addAll(Arrays.asList(Tile.values()));
+                    mapGrid[nx][ny].addAll(Arrays.asList(Tile.X, Tile.M, Tile.Y));
                 }
             }
         }
@@ -108,12 +137,12 @@ public class Map{
             //grass neighbours anything
             case X:
                 return Set.of(Tile.X, Tile.M, Tile.Y, Tile.S);
-            //mountain neighbours grass and mountains
+            //mountain neighbours grass, trees, and mountains
             case M:
-                return Set.of(Tile.X, Tile.M);
-            //trees do not neighbour the sea and the mountains
+                return Set.of(Tile.X, Tile.M, Tile.Y);
+            //trees do not neighbour the sea
             case Y:
-                return Set.of(Tile.X, Tile.Y);
+                return Set.of(Tile.X, Tile.Y, Tile.M);
             //Sea neighbours grass and water
             case S:
                 return Set.of(Tile.X, Tile.S);
@@ -126,8 +155,8 @@ public class Map{
         int max = Integer.MAX_VALUE;
         int[] pos = new int[2];
 
-        for(int x=0; x<size; x++){
-            for(int y=0; y<size; y++){
+        for(int x=1; x<size-1; x++){
+            for(int y=1; y<size-1; y++){
                 int entropy = mapGrid[x][y].size();
 
                 //ignoring already collapsed cells just to be sure
@@ -140,6 +169,17 @@ public class Map{
         }
 
         return pos;
+    }
+
+    public int[] spawnPoint(){
+        while(true){
+            int x = random.nextInt(size);
+            int y = random.nextInt(size);
+
+            if(getTile(x,y) == Tile.X || getTile(x,y) == Tile.Y && walkableNeighbor(x, y)){
+                return new int[]{x,y};
+            }
+        }
     }
 
     public void mapPrint(Player player, Enemy enemy){
@@ -168,4 +208,15 @@ public class Map{
         return mapGrid[x][y].iterator().next();
     }
     
+    public boolean walkableNeighbor(int x, int y){
+        for(int[] m : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
+            int nx = x + m[0];
+            int ny = y + m[1];
+
+            if(withinBounds(nx, ny) && getTile(nx,ny) == Tile.X || withinBounds(nx, ny) && getTile(nx,ny) == Tile.Y){
+                return true;
+            }
+        }
+        return false;
+    }
 }

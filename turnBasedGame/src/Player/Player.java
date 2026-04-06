@@ -19,15 +19,14 @@ public class Player {
 
 
     //for starting position
-    public Player(int startingX, int startingY){
-        this.x = startingX;
-        this.y = startingY;
+    public Player(){
         this.health = maxHealth;
         this.mana = maxMana;
         this.strength = 0;
         this.dexterity = 0;
         this.intelligence = 0;
     }
+    
 
     public int getX(){
         return x;
@@ -59,6 +58,11 @@ public class Player {
     }
     public int getIntelligence(){
         return intelligence;
+    }
+
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     //player movement methods
@@ -123,6 +127,32 @@ public class Player {
                         newValueUpgrade = strength+1;
                         System.out.println("Strength has been upgraded from " + strength + " to " + newValueUpgrade);
                         strength = newValueUpgrade;
+                        isConfirmed = true;
+                        break;
+                    }else if(secondInput == "NO"){
+                        break;
+                    }
+                case "2":
+                    System.out.println("Are you sure you want to upgrade dexterity?\n"
+                                        + "[Yes]" + "[No]");
+                    secondInput = scanner.nextLine().toUpperCase();
+                    if(secondInput == "YES"){
+                        newValueUpgrade = dexterity+1;
+                        System.out.println("Strength has been upgraded from " + dexterity + " to " + newValueUpgrade);
+                        dexterity = newValueUpgrade;
+                        isConfirmed = true;
+                        break;
+                    }else if(secondInput == "NO"){
+                        break;
+                    }
+                case "3":
+                    System.out.println("Are you sure you want to upgrade Intelligence?\n"
+                                        + "[Yes]" + "[No]");
+                    secondInput = scanner.nextLine().toUpperCase();
+                    if(secondInput == "YES"){
+                        newValueUpgrade = intelligence+1;
+                        System.out.println("Strength has been upgraded from " + intelligence + " to " + newValueUpgrade);
+                        intelligence = newValueUpgrade;
                         isConfirmed = true;
                         break;
                     }else if(secondInput == "NO"){

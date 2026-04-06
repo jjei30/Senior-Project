@@ -18,13 +18,25 @@ public class Engine {
     public Engine(){
        map = new Map(10);
        map.generateMap();
-       player = new Player(0,0);
+       player = new Player();
+       enemy = new Enemy();
+       spawnEntities();
        scanner = new Scanner(System.in);
-       enemy = new Enemy(5, 5);
        combat = new Combat();
     }
 
     boolean inGame = true;
+
+    private void spawnEntities(){
+        int[] playerSpawnPoint = map.spawnPoint();
+        int[] enemySpawnPoint;
+        player.setPosition(playerSpawnPoint[0], playerSpawnPoint[1]);
+        do{
+            enemySpawnPoint = map.spawnPoint();
+        }while(enemySpawnPoint[0] == player.getX() && enemySpawnPoint[1] == player.getY());
+
+        enemy.setPosition(enemySpawnPoint[0], enemySpawnPoint[1]);
+    }
 
     public void gameStart(){
         map.mapPrint(player, enemy);

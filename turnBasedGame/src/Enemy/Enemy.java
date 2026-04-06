@@ -13,10 +13,12 @@ public class Enemy {
     private int dexterity;
     private int intelligence;
 
-    public Enemy(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Enemy(){
         this.health = maxHealth;
+        this.mana = maxMana;
+        this.strength = 0;
+        this.dexterity = 0;
+        this.intelligence = 0;
     }
 
     public int getX(){
@@ -45,6 +47,10 @@ public class Enemy {
     }
     public int getIntelligence(){
         return intelligence;
+    }
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     public void movement(int dx, int dy, Map map){
