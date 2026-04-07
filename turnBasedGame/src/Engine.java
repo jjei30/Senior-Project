@@ -13,14 +13,22 @@ public class Engine {
     private Scanner scanner;
     private Enemy enemy;
     private Combat combat;
-    private String action;
+    private String gamePopUp;
+    private int islLevel = 1;
+    private boolean fromDock = false;
 
     public Engine(){
        map = new Map(10);
+       System.out.println("Generating map...");
        map.generateMap();
+       System.out.println("Map Generated!");
        player = new Player();
        enemy = new Enemy();
+       System.out.println("Spawning the Player and Enemies");
+       int[] playerSpawnPoint = map.spawnPoint();
+       player.setPosition(playerSpawnPoint[0], playerSpawnPoint[1]);
        spawnEntities();
+       System.out.println("Player and enemies have been spawned");
        scanner = new Scanner(System.in);
        combat = new Combat();
     }
@@ -28,9 +36,7 @@ public class Engine {
     boolean inGame = true;
 
     private void spawnEntities(){
-        int[] playerSpawnPoint = map.spawnPoint();
         int[] enemySpawnPoint;
-        player.setPosition(playerSpawnPoint[0], playerSpawnPoint[1]);
         do{
             enemySpawnPoint = map.spawnPoint();
         }while(enemySpawnPoint[0] == player.getX() && enemySpawnPoint[1] == player.getY());
@@ -44,15 +50,53 @@ public class Engine {
         System.out.println("Use WASD to move. Q to return to menu.");
         while(inGame && player.isPlayerAlive()){
             playerTurn();
+            fromDock = false;
             isCombat(player, enemy);
+            if(map.nextToDock(player, Map.Tile.O)){
+                gamePopUp = "Press F to go to the next island with the dock";
+            }else if(map.nextToDock(player, Map.Tile.V)){
+                gamePopUp = "Press F to go to return back to the island with the dock";
+            }
             enemyTurn(enemy, player, map);
             isCombat(player, enemy);
             System.out.println();
             map.mapPrint(player, enemy);
             System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
-            System.out.println(action);
+            System.out.println(gamePopUp);
             System.out.println("Use WASD to move. Q to return to menu.");
         }
+    }
+
+    public void moveIsland(){
+        islLevel++;
+        fromDock = true;
+
+        System.out.println("Travelling to the new island...");
+
+        map = new Map(map.getMapSize());
+        map.generateMap();
+
+        map.spawnReturnDock();
+
+        spawnEntities();
+
+        player.setPosition(map.spawnPoint()[0], map.spawnPoint()[1]);
+
+        //here I will scale the enemy soon
+    }
+    public void returnIsland(){
+        islLevel--;
+        fromDock = true;
+
+        System.out.println("Returning to Island...");
+
+        map = new Map(map.getMapSize());
+        map.generateMap();
+
+        spawnEntities();
+        player.setPosition(map.spawnPoint()[0], map.spawnPoint()[1]);
+
+        //here I will scale the enemy soon
     }
 
     void isCombat(Player player, Enemy enemy){
@@ -66,27 +110,35 @@ public class Engine {
             
             switch(input){
                 case "W":
-                    action = "------Moving up------";
+                    gamePopUp = "------Moving up------";
                     playerMovement(player, map, -1, 0);
                     break;
                 case "A":
-                    action = "------Moving left------";
+                    gamePopUp = "------Moving left------";
                     playerMovement(player, map, 0, -1);
                     break;
                 case "S":
-                    action = "------Moving down------";
+                    gamePopUp = "------Moving down------";
                     playerMovement(player, map, 1, 0);
                     break;
                 case "D":
-                    action = "------Moving right------";
+                    gamePopUp = "------Moving right------";
                     playerMovement(player, map, 0, 1);
                     break;
                 case "Q":
-                    System.out.println("------Returning to Main Menu...------");
+                    gamePopUp = "------Returning to Main Menu...------";
                     inGame = false;
                     break;
+                case "F":
+                    if(map.nextToDock(player, Map.Tile.O) && !fromDock){
+                        moveIsland();
+                        break;
+                    }else if(map.nextToDock(player, Map.Tile.V) && !fromDock){
+                        returnIsland();
+                        break;
+                    }
                 default:
-                    System.out.println("------That's not an option------");
+                    gamePopUp = "------That's not an option------";
                     break;
             }
     }
@@ -108,6 +160,8 @@ public class Engine {
         }else if(tile == Map.Tile.S){
             System.out.println("The Waters are blocking your path!"); //Same case as the mountains above
             return;
+        }else if(tile == Map.Tile.O){
+            return;
         }
 
         player.movement(dx, dy, map.getMapSize());
@@ -128,6 +182,7 @@ public class Engine {
         }
 
     }
+
      //just to add some delay for gaming experience purposes
     private void pause(int milliseconds){
         try{

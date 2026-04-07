@@ -5,9 +5,9 @@ import Enemy.Enemy;
 import Player.Player;
 
 public class Map{
-    //X is grass, S is water, M is mountain, Y is tree, D is dock
+    //X is grass, S is water, M is mountain, Y is tree, O is for departing dock and V for returning Dock
     public enum Tile{
-        X, S, M, Y, D
+        X, S, M, Y, O, V
     }
 
     
@@ -37,25 +37,75 @@ public class Map{
         
     }
 
-    public void placeDock(){
-        while(true){
-            int x = random.nextInt(size);
-            int y = random.nextInt(size);
-
-            //will be on the sea
-            if(getTile(x,y) == Tile.S){
-                for(int[] m : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
-                    int nx = x + m[0];
-                    int ny = y + m[1];
-                    
-                    if(withinBounds(nx, ny)){
-                        Tile neighbor = getTile(nx, ny);
-                       
+    public void spawnReturnDock(){
+        System.out.println("Placing docks");
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y<size; y++){
+                if(getTile(x,y) == Tile.S){
+                    for(int[] m : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
+                        int nx = x + m[0];
+                        int ny = y + m[1];
+                        
+                        if(withinBounds(nx, ny)){
+                            Tile neighbor = getTile(nx, ny);
+                        
+                            if(neighbor == Tile.X || neighbor == Tile.Y){
+                                mapGrid[x][y].clear();
+                                mapGrid[x][y].add(Tile.V);
+                                return;
+                            }
+                        }
                     }
                 }
             }
+            
         }
+        System.out.println("Docks have been placed!");
     }
+
+    public void getReturnDock(){
+        
+    }
+
+    public void spawnDepartingDock(){
+        System.out.println("Placing docks");
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y<size; y++){
+                if(getTile(x,y) == Tile.S){
+                    for(int[] m : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
+                        int nx = x + m[0];
+                        int ny = y + m[1];
+                        
+                        if(withinBounds(nx, ny)){
+                            Tile neighbor = getTile(nx, ny);
+                        
+                            if(neighbor == Tile.X || neighbor == Tile.Y){
+                                mapGrid[x][y].clear();
+                                mapGrid[x][y].add(Tile.O);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        System.out.println("Docks have been placed!");
+    }
+    
+    
+    public boolean nextToDock(Player player, Tile dockTile){
+        for(int[]m: new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
+            int nx = player.getX() + m[0];
+            int ny = player.getY() + m[1];
+
+            if(getTile(nx, ny) == dockTile){
+                return true;
+            }
+        }
+        return false;
+    }
+    
 
     //check for every cell if it has been reduced to a tile
     private boolean isCollapsed(){
@@ -87,6 +137,7 @@ public class Map{
             //propagating constraints to neighbour cells
             Propagate(x, y);
         }
+        spawnDepartingDock();
     }
     //taking a random element using a set of tiles
     private Tile pickRandom(Set<Tile> set){
