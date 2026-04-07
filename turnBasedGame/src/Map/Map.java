@@ -36,8 +36,9 @@ public class Map{
         }
         
     }
+    
 
-    public void spawnReturnDock(){
+    public int[] spawnReturnDock(){
         System.out.println("Placing docks");
         for(int x = 0; x < size; x++){
             for(int y = 0; y<size; y++){
@@ -52,7 +53,7 @@ public class Map{
                             if(neighbor == Tile.X || neighbor == Tile.Y){
                                 mapGrid[x][y].clear();
                                 mapGrid[x][y].add(Tile.V);
-                                return;
+                                return new int[]{nx, ny};
                             }
                         }
                     }
@@ -61,10 +62,8 @@ public class Map{
             
         }
         System.out.println("Docks have been placed!");
-    }
-
-    public void getReturnDock(){
         
+        return new int[]{1, 1};
     }
 
     public void spawnDepartingDock(){
@@ -137,7 +136,6 @@ public class Map{
             //propagating constraints to neighbour cells
             Propagate(x, y);
         }
-        spawnDepartingDock();
     }
     //taking a random element using a set of tiles
     private Tile pickRandom(Set<Tile> set){

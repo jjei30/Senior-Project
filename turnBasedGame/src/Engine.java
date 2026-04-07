@@ -16,11 +16,13 @@ public class Engine {
     private String gamePopUp;
     private int islLevel = 1;
     private boolean fromDock = false;
+    
 
     public Engine(){
        map = new Map(10);
        System.out.println("Generating map...");
        map.generateMap();
+       map.spawnDepartingDock();
        System.out.println("Map Generated!");
        player = new Player();
        enemy = new Enemy();
@@ -45,6 +47,7 @@ public class Engine {
     }
 
     public void gameStart(){
+        System.out.println("===Island " + islLevel + "===");
         map.mapPrint(player, enemy);
         System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth() + " | " + "Mana: " + player.getMana() + "/" + player.getMaxMana());
         System.out.println("Use WASD to move. Q to return to menu.");
@@ -76,11 +79,13 @@ public class Engine {
         map = new Map(map.getMapSize());
         map.generateMap();
 
-        map.spawnReturnDock();
+        int[] newSpawn = map.spawnReturnDock();
+
+        map.spawnDepartingDock();
 
         spawnEntities();
 
-        player.setPosition(map.spawnPoint()[0], map.spawnPoint()[1]);
+        player.setPosition(newSpawn[0], newSpawn[1]);
 
         //here I will scale the enemy soon
     }
