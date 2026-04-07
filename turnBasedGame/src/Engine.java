@@ -1,11 +1,10 @@
 import java.util.Scanner;
-
 import Enemy.Enemy;
 import Enemy.Pathfinder;
 import Map.Map;
 import Player.Player;
-
 import java.util.List;
+import java.util.ArrayList;
 
 public class Engine {
     private Map map;
@@ -16,14 +15,16 @@ public class Engine {
     private String gamePopUp;
     private int islLevel = 1;
     private boolean fromDock = false;
-    
+    private List<Map> islandList = new ArrayList<>();
 
     public Engine(){
-       map = new Map(10);
+       Map firstMap = new Map(10);
        System.out.println("Generating map...");
-       map.generateMap();
-       map.spawnDepartingDock();
+       firstMap.generateMap();
+       firstMap.spawnDepartingDock();
        System.out.println("Map Generated!");
+       islandList.add(firstMap);
+       map = firstMap;
        player = new Player();
        enemy = new Enemy();
        System.out.println("Spawning the Player and Enemies");
@@ -47,7 +48,7 @@ public class Engine {
     }
 
     public void gameStart(){
-        System.out.println("===Island " + islLevel + "===");
+        System.out.println("\n=====Island " + islLevel + "=====");
         map.mapPrint(player, enemy);
         System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth() + " | " + "Mana: " + player.getMana() + "/" + player.getMaxMana());
         System.out.println("Use WASD to move. Q to return to menu.");
@@ -72,36 +73,39 @@ public class Engine {
 
     public void moveIsland(){
         islLevel++;
+        System.out.println("\n=====Island " + islLevel + "=====");
         fromDock = true;
 
-        System.out.println("Travelling to the new island...");
+        if(islLevel-1 < islandList.size()){
+            map = islandList.get(islLevel-1);
+        }else{
+            System.out.println("Travelling to the new Island, Island " + islLevel);
 
-        map = new Map(map.getMapSize());
-        map.generateMap();
+            Map nextMap = new Map(map.getMapSize());
+            nextMap.generateMap();
 
-        int[] newSpawn = map.spawnReturnDock();
+            int[] newSpawn = nextMap.spawnReturnDock();
 
-        map.spawnDepartingDock();
+            nextMap.spawnDepartingDock();
 
-        spawnEntities();
+            islandList.add(nextMap);
 
-        player.setPosition(newSpawn[0], newSpawn[1]);
+            map = nextMap;
 
-        //here I will scale the enemy soon
+            spawnEntities();
+
+            player.setPosition(newSpawn[0], newSpawn[1]);
+        }
+            //here I will scale the enemy soon
     }
     public void returnIsland(){
         islLevel--;
         fromDock = true;
 
-        System.out.println("Returning to Island...");
+        System.out.println("Returning to Island " + islLevel + "...");
 
-        map = new Map(map.getMapSize());
-        map.generateMap();
-
-        spawnEntities();
-        player.setPosition(map.spawnPoint()[0], map.spawnPoint()[1]);
-
-        //here I will scale the enemy soon
+        map = islandList.get(islLevel-1);
+        //spawnEntities();
     }
 
     void isCombat(Player player, Enemy enemy){
@@ -136,7 +140,11 @@ public class Engine {
                     break;
                 case "F":
                     if(map.nextToDock(player, Map.Tile.O) && !fromDock){
-                        moveIsland();
+                        if(player.getLvl() >= islLevel+1){
+                            moveIsland();
+                        }else{
+                            System.out.println("You need to be at a higher level to go to the next island");
+                        }
                         break;
                     }else if(map.nextToDock(player, Map.Tile.V) && !fromDock){
                         returnIsland();
@@ -186,14 +194,5 @@ public class Engine {
             enemy.movement(dx, dy, map);
         }
 
-    }
-
-     //just to add some delay for gaming experience purposes
-    private void pause(int milliseconds){
-        try{
-            Thread.sleep(milliseconds);
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
     }
 }

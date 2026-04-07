@@ -43,6 +43,9 @@ public class Map{
         for(int x = 0; x < size; x++){
             for(int y = 0; y<size; y++){
                 if(getTile(x,y) == Tile.S){
+                    if(getTile(x,y) == Tile.O || getTile(x,y) == Tile.V){
+                        continue;
+                    }
                     for(int[] m : new int[][]{{-1,0},{1,0},{0,-1},{0,1}}){
                         int nx = x + m[0];
                         int ny = y + m[1];
@@ -58,12 +61,10 @@ public class Map{
                         }
                     }
                 }
+            System.out.println("Docks have been placed at " + x + ", " + y + "!");
             }
-            
         }
-        System.out.println("Docks have been placed!");
-        
-        return new int[]{1, 1};
+        throw new IllegalStateException("No valid area to place the dock");
     }
 
     public void spawnDepartingDock(){

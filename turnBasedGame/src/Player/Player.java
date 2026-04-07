@@ -59,6 +59,9 @@ public class Player {
     public int getIntelligence(){
         return intelligence;
     }
+    public int getLvl(){
+        return lvl;
+    }
 
     public void setPosition(int x, int y){
         this.x = x;
