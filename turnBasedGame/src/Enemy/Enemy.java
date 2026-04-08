@@ -1,24 +1,21 @@
 package Enemy;
+import Entity.Entity;
 import Map.Map;
 
-public class Enemy {
+public class Enemy extends Entity{
     
     private int x;
     private int y;
-    private int health;
     private int maxHealth = 50;
-    private int mana;
+    private int health = maxHealth;
     private int maxMana = 10;
+    private int mana = maxMana;
     private int strength;
     private int dexterity;
     private int intelligence;
 
-    public Enemy(){
-        this.health = maxHealth;
-        this.mana = maxMana;
-        this.strength = 0;
-        this.dexterity = 0;
-        this.intelligence = 0;
+    public Enemy(int maxHealth, int health, int maxMana, int mana, int strength, int dexterity, int intelligence){
+        super(health, maxHealth, mana, maxMana, strength, dexterity, intelligence);
     }
 
     public int getX(){
@@ -26,27 +23,6 @@ public class Enemy {
     }
     public int getY(){
         return y;
-    }
-    public int getHealth(){
-        return health;
-    }
-    public int getMaxHealth(){
-        return maxHealth;
-    }
-    public int getMana(){
-        return mana;
-    }
-    public int getMaxMana(){
-        return maxMana;
-    }
-    public int getStrength(){
-        return strength;
-    }
-    public int getDexterity(){
-        return dexterity;
-    }
-    public int getIntelligence(){
-        return intelligence;
     }
     public void setPosition(int x, int y){
         this.x = x;

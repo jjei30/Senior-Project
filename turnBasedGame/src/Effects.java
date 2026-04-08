@@ -9,5 +9,4 @@ public class Effects {
         this.buff = buff;
     }
 
-    public void applyEffects()
 }

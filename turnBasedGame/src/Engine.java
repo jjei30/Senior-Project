@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Engine {
     private Map map;
+    private Entity entity;
     private Player player;
     private Scanner scanner;
     private Enemy enemy;
