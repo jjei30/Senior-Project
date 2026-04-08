@@ -52,9 +52,16 @@ public class Entity {
         System.out.println("You took " + damage + " damage!");
     }
 
-    //healing function will go here as it will depend if the player has the potion
-
     public void manaDrain(int drain){
         mana -= drain;
+    }
+    
+
+    public boolean isEntityAlive(){
+        if(health > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

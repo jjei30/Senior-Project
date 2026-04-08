@@ -2,15 +2,13 @@ package Player;
 import java.lang.Math;
 import java.util.Scanner;
 
-import Entity.Entity;
-
-public class Player extends Entity{
+public class Player {
     private int x;
     private int y;
+    private int health;
     private int maxHealth = 100;
-    private int health = maxHealth;
+    private int mana;
     private int maxMana = 30;
-    private int mana = maxMana;
     private int strength;
     private int dexterity;
     private int intelligence;
@@ -21,11 +19,12 @@ public class Player extends Entity{
 
 
     //for starting position
-    public Player(int health, int maxHealth, int mana, int maxMana, int strength, int dexterity, int intelligence, int lvl, int exp, int expUntilNextLevel){
-        super(health, maxHealth, mana, maxMana, strength, dexterity, intelligence);
-        this.lvl = lvl;
-        this.exp = exp;
-        this.expUntilNextLevel = expUntilNextLevel;
+    public Player(){
+        this.health = maxHealth;
+        this.mana = maxMana;
+        this.strength = 0;
+        this.dexterity = 0;
+        this.intelligence = 0;
     }
     
 
@@ -37,9 +36,33 @@ public class Player extends Entity{
         return y;
     }
 
+    public int getHealth(){
+        return health;
+    }
+
+    public int getMaxHealth(){
+        return maxHealth;
+    }
+
+    public int getMana(){
+        return mana;
+    }
+    public int getMaxMana(){
+        return maxMana;
+    }
+    public int getStrength(){
+        return strength;
+    }
+    public int getDexterity(){
+        return dexterity;
+    }
+    public int getIntelligence(){
+        return intelligence;
+    }
     public int getLvl(){
         return lvl;
     }
+
     public void setPosition(int x, int y){
         this.x = x;
         this.y = y;
