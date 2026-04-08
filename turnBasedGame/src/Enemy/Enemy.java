@@ -5,6 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 import Effects.Effects;
 
+import Spells.SpellsList;
+import Spells.Spells;
+import Items.Item;
+import Items.GameItem;
+
 public class Enemy {
     
     private int x;
@@ -17,6 +22,9 @@ public class Enemy {
     private int dexterity;
     private int intelligence;
     private List<Effects> effects = new ArrayList<>();
+    
+    private List<Spells> spellsLists = new ArrayList<>();
+    private List<Item> inventoryItems = new ArrayList<>();
 
     public Enemy(){
         this.health = maxHealth;
@@ -24,6 +32,7 @@ public class Enemy {
         this.strength = 0;
         this.dexterity = 0;
         this.intelligence = 0;
+        this.spellsLists = SpellsList.getSpells();
     }
 
     public int getX(){
@@ -114,5 +123,23 @@ public class Enemy {
                 iterator.remove();
             }
         }
+    }
+
+    public List<Spells> getSpells(){
+        return spellsLists;
+    }
+
+    public void addSpell(Spells spell){
+        spellsLists.add(spell);
+    }
+    //for testing purposes
+    public void addToInventory(Item item){
+        inventoryItems.add(GameItem.woodenStaff());
+        inventoryItems.add(GameItem.smallHealthPotion());
+        inventoryItems.add(GameItem.mediumManaPotion());
+    }
+
+    public List<Item> getInvItems(){
+        return inventoryItems;
     }
 }

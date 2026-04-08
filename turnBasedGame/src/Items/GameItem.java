@@ -1,5 +1,7 @@
 package Items;
+
 public class GameItem {
+
     public static Consumable smallHealthPotion(){
         Consumable smallHealthPotion = new Consumable("Small Health Potion", "A potion that restores 20hp!", 5, 20, 0);
         return smallHealthPotion;

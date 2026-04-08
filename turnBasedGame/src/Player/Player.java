@@ -7,7 +7,11 @@ import Effects.Effects;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import Spells.SpellsList;
 import Spells.Spells;
+import Items.Item;
+import Items.GameItem;
+
 public class Player {
     private int x;
     private int y;
@@ -22,6 +26,8 @@ public class Player {
     private int exp = 0;
     private int expUntilNextLevel = 100;
     private List<Effects> effects = new ArrayList<>();
+    private List<Spells> spellsLists = new ArrayList<>();
+    private List<Item> inventoryItems = new ArrayList<>();
 
 
 
@@ -32,6 +38,7 @@ public class Player {
         this.strength = 0;
         this.dexterity = 0;
         this.intelligence = 0;
+        this.spellsLists = SpellsList.getSpells();
     }
     
 
@@ -190,7 +197,7 @@ public class Player {
             health = maxHealth;
         }
     }
-    
+
     public void effectAdd(Effects effect){
         effects.add(effect);
     }
@@ -209,5 +216,24 @@ public class Player {
         }
     }
 
+    
+
+    public List<Spells> getSpells(){
+        return spellsLists;
+    }
+
+    public void addSpell(Spells spell){
+        spellsLists.add(spell);
+    }
+    //for testing purposes
+    public void addToInventory(Item item){
+        inventoryItems.add(GameItem.woodenStaff());
+        inventoryItems.add(GameItem.smallHealthPotion());
+        inventoryItems.add(GameItem.mediumManaPotion());
+    }
+
+    public List<Item> getInvItems(){
+        return inventoryItems;
+    }
     
 }
