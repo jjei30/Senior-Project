@@ -1,6 +1,8 @@
 package Player;
 import java.lang.Math;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private int x;
@@ -15,6 +17,7 @@ public class Player {
     private int lvl = 1;
     private int exp = 0;
     private int expUntilNextLevel = 100;
+    private List<Effects> playerEffects = new ArrayList<>();
 
 
 

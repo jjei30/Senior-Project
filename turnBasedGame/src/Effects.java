@@ -19,11 +19,14 @@ public class Effects {
             case "Poison":
                 player.takeDamage(3 + enemy.getIntelligence());
                 break;
+            case "Burning":
+                player.takeDamage(5 + enemy.getIntelligence());
+                break;
             case "Freeze":
                 //player will be frozen here
                 break;
             case "Healing":
-                player.heal(5 + player.getIntelligence());
+                player.heal(20 + player.getIntelligence());
                 break;
         }
     }
