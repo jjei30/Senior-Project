@@ -5,9 +5,9 @@ import Enemy.Enemy;
 import Player.Player;
 
 public class Map{
-    //X is grass, S is water, M is mountain, Y is tree, O is for departing dock and V for returning Dock
+    //X is grass, S is water, M is mountain, Y is tree, O is for departing dock and V for returning Dock, H is chest, and L is library
     public enum Tile{
-        X, S, M, Y, O, V
+        X, S, M, Y, O, V, H, L
     }
 
     
@@ -25,7 +25,7 @@ public class Map{
                 if(x == 0 || y == 0 || x == size-1 || y == size-1){
                     mapGrid[x][y] = new HashSet<>(Set.of(Tile.S));
                 }else{
-                    mapGrid[x][y] = new HashSet<>(Arrays.asList(Tile.X, Tile.M, Tile.Y));
+                    mapGrid[x][y] = new HashSet<>(Arrays.asList(Tile.X, Tile.M, Tile.Y, Tile.H, Tile.L));
 
                     if(x == 1 || y == 1 || x == size-2 || y==size-2){
                         mapGrid[x][y].remove(Tile.M);
