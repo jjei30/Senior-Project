@@ -82,7 +82,12 @@ public class Enemy {
         System.out.println("Enemy took " + damage + " damage!");
     }
 
-    //healing function will go here as it will depend if the enemy has the potion
+    public void heal(int amount){
+        health += amount;
+        if(health >= maxHealth){
+            health = maxHealth;
+        }
+    }
 
     public void manaDrain(int drain){
         mana -= drain;
