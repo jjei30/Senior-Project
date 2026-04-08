@@ -40,7 +40,7 @@ public class Player {
         return health;
     }
 
-    public int maxHealth(){
+    public int getMaxHealth(){
         return maxHealth;
     }
 

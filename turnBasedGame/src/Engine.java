@@ -50,7 +50,7 @@ public class Engine {
     public void gameStart(){
         System.out.println("\n=====Island " + islLevel + "=====");
         map.mapPrint(player, enemy);
-        System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth() + " | " + "Mana: " + player.getMana() + "/" + player.getMaxMana());
+        System.out.println("Health: " + player.getHealth() + "/" + player.getMaxHealth() + " | " + "Mana: " + player.getMana() + "/" + player.getMaxMana());
         System.out.println("Use WASD to move. Q to return to menu.");
         while(inGame && player.isPlayerAlive()){
             playerTurn();
@@ -65,7 +65,7 @@ public class Engine {
             isCombat(player, enemy);
             System.out.println();
             map.mapPrint(player, enemy);
-            System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
+            System.out.println("Health: " + player.getHealth() + "/" + player.getMaxHealth());
             System.out.println(gamePopUp);
             System.out.println("Use WASD to move. Q to return to menu.");
         }

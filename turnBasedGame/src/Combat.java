@@ -6,9 +6,10 @@ import Player.Player;
 public class Combat {
     private Scanner scanner = new Scanner(System.in);
     String action;
+    boolean escaped = false;
 
     public void combatMode(Player player, Enemy enemy){
-        while(player.isPlayerAlive() && enemy.isEnemyAlive()){
+        while(player.isPlayerAlive() && enemy.isEnemyAlive() && escaped == false){
             combatUI(player, enemy);
             playerTurn(player, enemy);
             enemyTurn(player, enemy);
@@ -20,7 +21,7 @@ public class Combat {
         System.out.println("Enemy Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
         System.out.println("Enemy Mana: " + "Mana"); //placeholder
         System.out.println("---------------------");
-        System.out.println("Health: " + player.getHealth() + "/" + player.maxHealth());
+        System.out.println("Health: " + player.getHealth() + "/" + player.getMaxHealth());
         System.out.println("---------------------");
     }
 
@@ -46,7 +47,25 @@ public class Combat {
                 pause(1000);
                 break;
             case "4":
-                action = "Attempting to escape..."; //placeholder
+                 action = "Attempting to escape...";
+                int oneDTwenty = (int)(Math.random()*21);
+                System.out.println("Rolled: " + oneDTwenty);
+                double playerHealthRatio = (double)(player.getHealth()/player.getMaxHealth());
+                System.out.println("Player's current Health Ratio: " + playerHealthRatio);
+                double enemyHealthRatio = (double)(enemy.getHealth()/enemy.getMaxHealth());
+                System.out.println("Enemy's current Health Ratio: " + enemyHealthRatio);
+
+                int playerChances = oneDTwenty + player.getDexterity() + (int)(playerHealthRatio*10);
+                int enemyResistance = (int)(enemyHealthRatio*10);
+                System.out.println("Player's chances: " + playerChances + " vs Enemy's chances: " + enemyResistance);
+
+                if(playerChances >= enemyResistance){
+                    action = "Escape is successful";
+                    escaped = true;
+                }else{
+                    action = "Escape failed..";
+                }
+               
                 break;
             default:
                 System.out.println("Invalid move!");
