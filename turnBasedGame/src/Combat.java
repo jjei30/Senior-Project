@@ -88,7 +88,30 @@ public class Combat {
     private void enemyTurn(Player player, Enemy enemy){
         System.out.println("Enemy is thinking");
         pause(1000);
-       
+        int randChoice = (int)(Math.random()*3);
+        switch(randChoice){
+            case 0:
+                System.out.println("Enemy is attacking!");
+                player.takeDamage(15);
+                pause(1000);
+                break;
+            case 1:
+                System.out.println("Enemy is casting a spell"); 
+                List<Spells> spells = enemy.getSpells();
+                int randomSpellChoice = (int)(Math.random()*spells.size());
+                Spells selectedSpell = spells.get(randomSpellChoice-1);
+                selectedSpell.playerSpellCast(player, enemy, selectedSpell.getSpellName());
+                pause(1000);
+                break;
+            case 2:
+                System.out.println("Enemy is using an item"); //same case as player
+                pause(1000);
+                break;
+            default:
+                System.out.println("Enemy is rethinking");
+                pause(1000);
+
+        }
     }
      //just to add some delay for gaming experience purposes
     private void pause(int milliseconds){
