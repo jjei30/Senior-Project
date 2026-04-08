@@ -39,12 +39,12 @@ public class Engine {
     boolean inGame = true;
 
     private void spawnEntities(){
-        int[] enemySpawnPoint;
-        do{
-            enemySpawnPoint = map.spawnPoint();
-        }while(enemySpawnPoint[0] == player.getX() && enemySpawnPoint[1] == player.getY());
+            int[] enemySpawnPoint;
+            do{
+                enemySpawnPoint = map.spawnPoint();
+            }while(enemySpawnPoint[0] == player.getX() && enemySpawnPoint[1] == player.getY());
 
-        enemy.setPosition(enemySpawnPoint[0], enemySpawnPoint[1]);
+            enemy.setPosition(enemySpawnPoint[0], enemySpawnPoint[1]);
     }
 
     public void gameStart(){
@@ -143,7 +143,7 @@ public class Engine {
                         if(player.getLvl() >= islLevel+1){
                             moveIsland();
                         }else{
-                            System.out.println("You need to be at a higher level to go to the next island");
+                          System.out.println("You need to be at a higher level to go to the next island");
                         }
                         break;
                     }else if(map.nextToDock(player, Map.Tile.V) && !fromDock){

@@ -39,9 +39,9 @@ public class Map{
     
 
     public int[] spawnReturnDock(){
-        System.out.println("Placing docks");
-        for(int x = 0; x < size; x++){
-            for(int y = 0; y<size; y++){
+        System.out.println("Placing docks...");
+        for(int x = size -1; x >= 0; x--){
+            for(int y = size-1; y>=0; y--){
                 if(getTile(x,y) == Tile.S){
                     if(getTile(x,y) == Tile.O || getTile(x,y) == Tile.V){
                         continue;
