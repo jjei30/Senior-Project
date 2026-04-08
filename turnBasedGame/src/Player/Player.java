@@ -4,8 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import Effects.Effects;
-
+import Spells.Spells;
 public class Player {
     private int x;
     private int y;
@@ -19,7 +18,7 @@ public class Player {
     private int lvl = 1;
     private int exp = 0;
     private int expUntilNextLevel = 100;
-    private List<Effects> playerEffects = new ArrayList<>();
+    private List<Spells> playerSpells = new ArrayList<>();
 
 
 
@@ -186,20 +185,6 @@ public class Player {
         health += amount;
         if(health >= maxHealth){
             health = maxHealth;
-        }
-    }
-
-    //iterator does it one element at a time and checks for more items
-    public void applyPlayerEffects(){
-        Iterator<Effects> iterator = playerEffects.iterator();
-        while(iterator.hasNext()){
-            Effects effect = iterator.next();
-            effect.applyPlayerEffect();
-            effect.durationTime();
-
-            if(effect.isEffectExpired()){
-                iterator.remove();
-            }
         }
     }
 

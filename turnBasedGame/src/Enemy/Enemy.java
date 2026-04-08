@@ -16,8 +16,7 @@ public class Enemy {
     private int strength;
     private int dexterity;
     private int intelligence;
-    private List<Effects> enemyEffects = new ArrayList<>();
-
+    private List<Effects> effects = new ArrayList<>();
 
     public Enemy(){
         this.health = maxHealth;
@@ -99,17 +98,7 @@ public class Enemy {
         mana -= drain;
     }
 
-    //iterator does it one element at a time and checks for more items
-    public void applyEnemyEffects(){
-        Iterator<Effects> iterator = enemyEffects.iterator();
-        while(iterator.hasNext()){
-            Effects effect = iterator.next();
-            effect.applyEnemyEffect();
-            effect.durationTime();
-
-            if(effect.isEffectExpired()){
-                iterator.remove();
-            }
-        }
+    public void effectApply(){
+        Iterator<Effects>
     }
 }
