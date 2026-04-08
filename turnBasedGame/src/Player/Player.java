@@ -3,6 +3,7 @@ import java.lang.Math;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import Effects.Effects;
 
 public class Player {
     private int x;

@@ -1,3 +1,4 @@
+package Effects;
 import Player.Player;
 import Enemy.Enemy;
 
