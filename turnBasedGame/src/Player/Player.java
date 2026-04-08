@@ -190,6 +190,10 @@ public class Player {
             health = maxHealth;
         }
     }
+    
+    public void effectAdd(Effects effect){
+        effects.add(effect);
+    }
 
     public void effectApply(){
         Iterator<Effects> iterator = effects.iterator();

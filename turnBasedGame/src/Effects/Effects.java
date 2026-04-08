@@ -12,7 +12,7 @@ public class Effects {
     int playerInt = player.getIntelligence();
     int enemyInt = enemy.getIntelligence();
 
-    enum EffectType{
+    public enum EffectType{
         POISON, BURN, FREEZE, DMG, HEAL
     }
 

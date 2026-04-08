@@ -98,6 +98,10 @@ public class Enemy {
         mana -= drain;
     }
 
+    public void effectAdd(Effects effect){
+        effects.add(effect);
+    }
+
     public void effectApply(){
         Iterator<Effects> iterator = effects.iterator();
         while(iterator.hasNext()){
