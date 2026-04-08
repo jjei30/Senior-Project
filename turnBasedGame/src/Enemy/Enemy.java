@@ -1,5 +1,9 @@
 package Enemy;
 import Map.Map;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import Effects.Effects;
 
 public class Enemy {
     
@@ -12,6 +16,8 @@ public class Enemy {
     private int strength;
     private int dexterity;
     private int intelligence;
+    private List<Effects> enemyEffects = new ArrayList<>();
+
 
     public Enemy(){
         this.health = maxHealth;
@@ -91,5 +97,19 @@ public class Enemy {
 
     public void manaDrain(int drain){
         mana -= drain;
+    }
+
+    //iterator does it one element at a time and checks for more items
+    public void applyEnemyEffects(){
+        Iterator<Effects> iterator = enemyEffects.iterator();
+        while(iterator.hasNext()){
+            Effects effect = iterator.next();
+            effect.applyEnemyEffect();
+            effect.durationTime();
+
+            if(effect.isEffectExpired()){
+                iterator.remove();
+            }
+        }
     }
 }

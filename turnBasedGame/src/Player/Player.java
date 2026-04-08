@@ -2,6 +2,7 @@ package Player;
 import java.lang.Math;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import Effects.Effects;
 
@@ -185,6 +186,20 @@ public class Player {
         health += amount;
         if(health >= maxHealth){
             health = maxHealth;
+        }
+    }
+
+    //iterator does it one element at a time and checks for more items
+    public void applyPlayerEffects(){
+        Iterator<Effects> iterator = playerEffects.iterator();
+        while(iterator.hasNext()){
+            Effects effect = iterator.next();
+            effect.applyPlayerEffect();
+            effect.durationTime();
+
+            if(effect.isEffectExpired()){
+                iterator.remove();
+            }
         }
     }
 
