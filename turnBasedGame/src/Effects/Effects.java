@@ -7,6 +7,10 @@ public class Effects {
     private EffectType effectType;
     private int duration;
     private int amount;
+    Player player = new Player();
+    Enemy enemy = new Enemy();
+    int playerInt = player.getIntelligence();
+    int enemyInt = enemy.getIntelligence();
 
     enum EffectType{
         POISON, BURN, FREEZE, DMG, HEAL
@@ -18,8 +22,7 @@ public class Effects {
         this.amount = amount;
     }
 
-    public void applyPlayerEffect(Player player, Enemy enemy){
-        int playerInt = player.getIntelligence();
+    public void applyEnemyEffect(Enemy enemy){
         switch(effectType){
             case POISON:
                 enemy.takeDamage(amount + playerInt);
@@ -37,32 +40,31 @@ public class Effects {
                 System.out.println("Enemy has taken  " + amount + " of damage!");
                 break;
             case HEAL:
-                player.heal(amount + playerInt);
-                System.out.println("Player heals  " + amount + " hp!");
+                enemy.heal(amount + enemyInt);
+                System.out.println("Enemy heals  " + amount + " hp!");
                 break;
         }
     }
 
-    public void applyEnemyEffect(Player player, Enemy enemy){
-        int enemyInt = enemy.getIntelligence();
+    public void applyPlayerEffect(Player player){
         switch(effectType){
             case POISON:
-                enemy.takeDamage(amount + enemyInt);
+                player.takeDamage(amount + playerInt);
                 System.out.println("Player is poisoned! It deals " + amount + " damage! ");
                 break;
             case BURN:
-                enemy.takeDamage(amount + 4 + enemyInt);
+                player.takeDamage(amount + 4 + playerInt);
                 System.out.println("Player is burning! It deals " + amount + " damage! ");
                 break;
             case FREEZE:
                 //filler
                 break;
             case DMG:
-                enemy.takeDamage(amount + enemyInt);
+                player.takeDamage(amount + playerInt);
                 System.out.println("Player has taken  " + amount + " of damage!");
                 break;
             case HEAL:
-                enemy.heal(amount + enemyInt);
+                player.heal(amount + playerInt);
                 System.out.println("Enemy heals  " + amount + " hp!");
                 break;
         }

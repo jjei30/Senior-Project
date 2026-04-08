@@ -1,6 +1,9 @@
 package Player;
 import java.lang.Math;
 import java.util.Scanner;
+
+import Effects.Effects;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +21,7 @@ public class Player {
     private int lvl = 1;
     private int exp = 0;
     private int expUntilNextLevel = 100;
-    private List<Spells> playerSpells = new ArrayList<>();
+    private List<Effects> effects = new ArrayList<>();
 
 
 
@@ -185,6 +188,20 @@ public class Player {
         health += amount;
         if(health >= maxHealth){
             health = maxHealth;
+        }
+    }
+
+    public void effectApply(){
+        Iterator<Effects> iterator = effects.iterator();
+        while(iterator.hasNext()){
+            Effects effect = iterator.next();
+            effect.applyPlayerEffect(this);
+            effect.durationTimer();
+
+            if(effect.effectExpired()){
+                System.out.println("Player's " + effect.getEffectType() + " has expired!");
+                iterator.remove();
+            }
         }
     }
 

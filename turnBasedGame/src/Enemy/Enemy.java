@@ -99,6 +99,16 @@ public class Enemy {
     }
 
     public void effectApply(){
-        Iterator<Effects>
+        Iterator<Effects> iterator = effects.iterator();
+        while(iterator.hasNext()){
+            Effects effect = iterator.next();
+            effect.applyEnemyEffect(this);
+            effect.durationTimer();
+
+            if(effect.effectExpired()){
+                System.out.println("Enemy's " + effect.getEffectType() + " has expired!");
+                iterator.remove();
+            }
+        }
     }
 }
