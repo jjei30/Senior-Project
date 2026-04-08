@@ -1,12 +1,18 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 import Enemy.Enemy;
 import Player.Player;
+import Spells.Spells;
 
 public class Combat {
     private Scanner scanner = new Scanner(System.in);
     String action;
     boolean escaped = false;
+    private int enemyAggressiveness = 0;
+    private int enemySuccess = 0;
+    private int enemyFail = 0;
 
     public void combatMode(Player player, Enemy enemy){
         while(player.isPlayerAlive() && enemy.isEnemyAlive() && escaped == false){
@@ -38,8 +44,14 @@ public class Combat {
                 pause(1000);
                 break;
             case "2":
-               action = "Casting a spell...";
-                player.manaDrain(5); //will make spells list soon
+               action = "What Spell are you choosing?";
+               List<Spells> spells = player.getSpells();
+                for(int i = 0; i < spells.size(); i++){
+                    System.out.println((i+1) + ". " + spells.get(i).getSpellName() + " Mana Cost: " + spells.get(i).getManaCost());
+                }
+                int spellChoice = scanner.nextInt();
+                Spells selectedSpell = spells.get(spellChoice-1);
+                selectedSpell.playerSpellCast(player, enemy, selectedSpell.getSpellName());
                 pause(1000);
                 break;
             case "3":
@@ -76,28 +88,7 @@ public class Combat {
     private void enemyTurn(Player player, Enemy enemy){
         System.out.println("Enemy is thinking");
         pause(1000);
-        //placeholder until I implement an AI-based system
-        int randomChoice = (int)(Math.random()*3);
-        switch(randomChoice){
-            case 0:
-                System.out.println("Enemy is attacking!");
-                player.takeDamage(15);
-                pause(1000);
-                break;
-            case 1:
-                System.out.println("Enemy is casting a spell"); //same case as player
-                enemy.manaDrain(5);
-                pause(1000);
-                break;
-            case 2:
-                System.out.println("Enemy is using an item"); //same case as player
-                pause(1000);
-                break;
-            default:
-                System.out.println("Enemy is rethinking");
-                pause(1000);
-
-        }
+       
     }
      //just to add some delay for gaming experience purposes
     private void pause(int milliseconds){

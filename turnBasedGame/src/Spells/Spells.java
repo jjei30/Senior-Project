@@ -20,6 +20,9 @@ public class Spells {
     public String getSpellName(){
         return spellName;
     }
+    public int getManaCost(){
+        return manaCost;
+    }
 
     public void playerSpellCast(Player player, Enemy enemy, String spellName){
         if(player.getMana() < manaCost){
