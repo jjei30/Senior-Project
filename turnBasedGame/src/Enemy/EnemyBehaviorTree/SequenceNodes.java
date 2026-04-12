@@ -1,5 +1,23 @@
 package Enemy.EnemyBehaviorTree;
 
-public class SequenceNodes {
-    
+import java.util.List;
+
+public class SequenceNodes extends Nodes{
+    private List<Nodes> children;
+
+    public SequenceNodes(List<Nodes> children){
+        this.children = children;
+    }
+
+    @Override
+    public Stat nodeExecute(){
+        for(Nodes c : children){
+            Stat stat = c.nodeExecute();
+            if(stat == Stat.SUCCESS){
+                return Stat.SUCCESS;
+            }
+           
+        }
+        return Stat.FAILURE;
+    }
 }
