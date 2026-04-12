@@ -2,10 +2,10 @@ package Enemy.EnemyBehaviorTree;
 
 import java.util.List;
 
-public class SelectorNodes extends Nodes{
+public class FallbackNodes extends Nodes{
     private List<Nodes> children;
 
-    public SelectorNodes(List<Nodes> children){
+    public FallbackNodes(List<Nodes> children){
         this.children = children;
     }
 
