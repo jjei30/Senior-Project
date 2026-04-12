@@ -10,9 +10,6 @@ public class Combat {
     private Scanner scanner = new Scanner(System.in);
     String action;
     boolean escaped = false;
-    private int enemyAggressiveness = 0;
-    private int enemySuccess = 0;
-    private int enemyFail = 0;
 
     public void combatMode(Player player, Enemy enemy){
         while(player.isPlayerAlive() && enemy.isEnemyAlive() && escaped == false){
