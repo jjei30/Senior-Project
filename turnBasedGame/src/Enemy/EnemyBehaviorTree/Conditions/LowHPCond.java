@@ -1,5 +1,7 @@
-package Enemy.EnemyBehaviorTree;
+package Enemy.EnemyBehaviorTree.Conditions;
 import Enemy.Enemy;
+import Enemy.EnemyBehaviorTree.Nodes;
+import Enemy.EnemyBehaviorTree.Stat;
 
 public class LowHPCond extends Nodes {
     private Enemy enemy;
