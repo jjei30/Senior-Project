@@ -220,7 +220,7 @@ public class Player {
         Iterator<Effects> iterator = effects.iterator();
         while(iterator.hasNext()){
             Effects effect = iterator.next();
-            effect.applyPlayerEffect(this);
+            effect.applyPlayerEffect(this, enemy);
             effect.durationTimer();
 
             if(effect.effectExpired()){
@@ -228,6 +228,10 @@ public class Player {
                 iterator.remove();
             }
         }
+    }
+
+    public List<Effects> getEffects(){
+        return effects;
     }
 
     

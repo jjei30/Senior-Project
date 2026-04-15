@@ -12,6 +12,10 @@ public class Combat {
 
     public void combatMode(Player player, Enemy enemy){
         while(player.isPlayerAlive() && enemy.isEnemyAlive() && escaped == false){
+            System.out.println("Effects on enemy: " + enemy.getEffects().size());
+            System.out.println("Effects on player: " + player.getEffects().size());
+            player.effectApply();
+            enemy.effectApply();
             combatUI(player, enemy);
             playerTurn(player, enemy);
             enemyTurn(player, enemy);
@@ -21,7 +25,7 @@ public class Combat {
     private void combatUI(Player player, Enemy enemy){
         System.out.println("\n====BATTLE====");
         System.out.println("Enemy Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
-        System.out.println("Enemy Mana: " + "Mana"); //placeholder
+        System.out.println("Enemy Mana: " + enemy.getMana()); //placeholder
         System.out.println("---------------------");
         System.out.println("Health: " + player.getHealth() + "/" + player.getMaxHealth());
         System.out.println("---------------------");
@@ -96,7 +100,7 @@ public class Combat {
                 List<Spells> spells = enemy.getSpells();
                 int randomSpellChoice = (int)(Math.random()*spells.size());
                 Spells selectedSpell = spells.get(randomSpellChoice);
-                selectedSpell.playerSpellCast(player, enemy);
+                selectedSpell.enemySpellCast(player, enemy);
                 pause(1000);
                 break;
             case 2:

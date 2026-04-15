@@ -153,4 +153,8 @@ public class Enemy {
     public List<Item> getInvItems(){
         return inventoryItems;
     }
+
+    public List<Effects> getEffects(){
+        return effects;
+    }
 }

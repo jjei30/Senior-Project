@@ -32,19 +32,19 @@ public class Spells {
             player.manaDrain(manaCost);
             switch(effectType){
             case POISON:
-                enemy.effectAdd(new Effects(effectType, 3, power));
+                enemy.effectAdd(new Effects(effectType, 3, power, player.getIntelligence()));
                 break;
             case BURN: 
-                enemy.effectAdd(new Effects(effectType, 3, power));
+                enemy.effectAdd(new Effects(effectType, 3, power, player.getIntelligence()));
                 break;
             case FREEZE:
                 //filler
                 break;
             case DMG:
-                enemy.effectAdd(new Effects(effectType, 3, power));
+                enemy.effectAdd(new Effects(effectType, 3, power, player.getIntelligence()));
                 break;
             case HEAL:
-                player.effectAdd(new Effects(effectType, 3, power));
+                player.effectAdd(new Effects(effectType, 3, power, player.getIntelligence()));
                 break;
             }
         }
@@ -58,19 +58,19 @@ public class Spells {
             enemy.manaDrain(manaCost);
             switch(effectType){
             case POISON:
-                player.effectAdd(new Effects(effectType, 3, power));
+                player.effectAdd(new Effects(effectType, 3, power, enemy.getIntelligence()));
                 break;
             case BURN:
-                player.effectAdd(new Effects(effectType, 3, power));
+                player.effectAdd(new Effects(effectType, 3, power, enemy.getIntelligence()));
                 break;
             case FREEZE:
                 //filler
                 break;
             case DMG:
-                player.effectAdd(new Effects(effectType, 3, power));
+                player.effectAdd(new Effects(effectType, 3, power, enemy.getIntelligence()));
                 break;
             case HEAL:
-                enemy.effectAdd(new Effects(effectType, 3, power));
+                enemy.effectAdd(new Effects(effectType, 3, power, enemy.getIntelligence()));
                 break;
             }
         }
