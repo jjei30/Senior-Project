@@ -9,7 +9,7 @@ import Items.Item;
 import Items.Consumable;
 import java.util.List;
 
-public class Heal extends Nodes {
+/*public class Heal extends Nodes {
     private Enemy enemy;
 
     public Heal(Enemy enemy){
@@ -24,4 +24,4 @@ public class Heal extends Nodes {
         List<Item> inv = enemy.getInvItems();
         Consumable healthPotion = null;
     }
-}
+}*/

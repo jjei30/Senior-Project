@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
 
 import Enemy.Enemy;
 import Player.Player;
@@ -47,8 +46,8 @@ public class Combat {
                     System.out.println((i+1) + ". " + spells.get(i).getSpellName() + " Mana Cost: " + spells.get(i).getManaCost());
                 }
                 int spellChoice = scanner.nextInt();
-                Spells selectedSpell = spells.get(spellChoice-1);
-                selectedSpell.playerSpellCast(player, enemy, selectedSpell.getSpellName());
+                Spells selectedSpell = spells.get(spellChoice);
+                selectedSpell.playerSpellCast(player, enemy);
                 pause(1000);
                 break;
             case "3":
@@ -96,8 +95,8 @@ public class Combat {
                 System.out.println("Enemy is casting a spell"); 
                 List<Spells> spells = enemy.getSpells();
                 int randomSpellChoice = (int)(Math.random()*spells.size());
-                Spells selectedSpell = spells.get(randomSpellChoice-1);
-                selectedSpell.playerSpellCast(player, enemy, selectedSpell.getSpellName());
+                Spells selectedSpell = spells.get(randomSpellChoice);
+                selectedSpell.playerSpellCast(player, enemy);
                 pause(1000);
                 break;
             case 2:

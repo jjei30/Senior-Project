@@ -24,7 +24,7 @@ public class Spells {
         return manaCost;
     }
 
-    public void playerSpellCast(Player player, Enemy enemy, String spellName){
+    public void playerSpellCast(Player player, Enemy enemy){
         if(player.getMana() < manaCost){
             System.out.println("Not enough Mana!");
             return;
@@ -34,7 +34,7 @@ public class Spells {
             case POISON:
                 enemy.effectAdd(new Effects(effectType, 3, power));
                 break;
-            case BURN:
+            case BURN: 
                 enemy.effectAdd(new Effects(effectType, 3, power));
                 break;
             case FREEZE:
@@ -50,7 +50,7 @@ public class Spells {
         }
     }
 
-    public void enemySpellCast(Player player, Enemy enemy, String spellName){
+    public void enemySpellCast(Player player, Enemy enemy){
         if(enemy.getMana() < manaCost){
             System.out.println("Enemy does not have enough Mana!");
             return;
@@ -70,7 +70,7 @@ public class Spells {
                 player.effectAdd(new Effects(effectType, 3, power));
                 break;
             case HEAL:
-                player.effectAdd(new Effects(effectType, 3, power));
+                enemy.effectAdd(new Effects(effectType, 3, power));
                 break;
             }
         }
