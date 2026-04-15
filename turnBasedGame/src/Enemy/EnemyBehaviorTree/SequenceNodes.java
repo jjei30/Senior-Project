@@ -13,11 +13,11 @@ public class SequenceNodes extends Nodes{
     public Stat nodeExecute(){
         for(Nodes c : children){
             Stat stat = c.nodeExecute();
-            if(stat == Stat.SUCCESS){
-                return Stat.SUCCESS;
+            if(stat == Stat.FAILURE){
+                return Stat.FAILURE;
             }
            
         }
-        return Stat.FAILURE;
+        return Stat.SUCCESS;
     }
 }

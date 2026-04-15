@@ -1,5 +1,7 @@
 package Enemy;
 import Map.Map;
+import Player.Player;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +27,8 @@ public class Enemy {
     
     private List<Spells> spellsLists = new ArrayList<>();
     private List<Item> inventoryItems = new ArrayList<>();
+    
+    private Player player;
 
     public Enemy(){
         this.health = maxHealth;
@@ -94,6 +98,13 @@ public class Enemy {
         }
 
         System.out.println("Enemy took " + damage + " damage!");
+    }
+
+    public void attack(Player player){
+        int dmg = 15 + strength;
+        player.takeDamage(dmg);
+
+        System.out.println("Enemy attacks, he does " + dmg + " damage!");
     }
 
     public void heal(int amount){

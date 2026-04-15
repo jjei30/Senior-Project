@@ -12,6 +12,8 @@ import Spells.Spells;
 import Items.Item;
 import Items.GameItem;
 
+import Enemy.Enemy;
+
 public class Player {
     private int x;
     private int y;
@@ -28,6 +30,8 @@ public class Player {
     private List<Effects> effects = new ArrayList<>();
     private List<Spells> spellsLists = new ArrayList<>();
     private List<Item> inventoryItems = new ArrayList<>();
+
+    private Enemy enemy = new Enemy();
 
 
 
@@ -196,6 +200,13 @@ public class Player {
         if(health >= maxHealth){
             health = maxHealth;
         }
+    }
+
+    public void attack(Enemy enemy){
+        int dmg = 15 + strength;
+        enemy.takeDamage(dmg);
+
+        System.out.println("Enemy attacks, he does " + dmg + " damage!");
     }
 
     public void effectAdd(Effects effect){

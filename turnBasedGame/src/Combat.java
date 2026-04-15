@@ -37,7 +37,7 @@ public class Combat {
         switch(input){
             case "1":
                 action = "Attacking...";
-                enemy.takeDamage(15);
+                player.attack(enemy);
                 pause(1000);
                 break;
             case "2":
