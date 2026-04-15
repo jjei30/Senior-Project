@@ -5,7 +5,7 @@ public class Consumable extends Item {
     private int manaRecover;
 
     public Consumable(String name, String desc, int value, int healthRecover, int manaRecover){
-        super(name, "Weapon",desc,value);
+        super(name, "Consumable",desc,value);
         this.healthRecover = healthRecover;
         this.manaRecover = manaRecover;
     }

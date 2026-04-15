@@ -6,7 +6,7 @@ public class GameItem {
         Consumable smallHealthPotion = new Consumable("Small Health Potion", "A potion that restores 20hp!", 5, 20, 0);
         return smallHealthPotion;
     }
-    public static Consumable MediumHealthPotion(){
+    public static Consumable mediumHealthPotion(){
         Consumable mediumHealthPotion = new Consumable("Medium Health Potion", "A potion that restores 50hp!", 10, 50, 0);
         return mediumHealthPotion;
     }

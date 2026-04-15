@@ -43,6 +43,9 @@ public class Player {
         this.dexterity = 0;
         this.intelligence = 0;
         this.spellsLists = SpellsList.getSpells();
+        inventoryItems.add(GameItem.woodenStaff());
+        inventoryItems.add(GameItem.smallHealthPotion());
+        inventoryItems.add(GameItem.mediumManaPotion());
     }
     
 
@@ -238,9 +241,7 @@ public class Player {
     }
     //for testing purposes
     public void addToInventory(Item item){
-        inventoryItems.add(GameItem.woodenStaff());
-        inventoryItems.add(GameItem.smallHealthPotion());
-        inventoryItems.add(GameItem.mediumManaPotion());
+        inventoryItems.add(item);
     }
 
     public List<Item> getInvItems(){
