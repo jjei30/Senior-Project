@@ -2,7 +2,7 @@ package Enemy.EnemyBehaviorTree;
 
 import java.util.List;
 
-public class FallbackNodes extends Nodes{
+public class FallbackNodes implements Nodes{
     private List<Nodes> children;
 
     public FallbackNodes(List<Nodes> children){

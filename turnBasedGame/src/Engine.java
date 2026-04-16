@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import Enemy.Enemy;
 import Enemy.Pathfinder;
+import Enemy.EnemyBehaviorTree.MainBehaviorTree;
 import Map.Map;
 import Player.Player;
 import java.util.List;
@@ -182,17 +183,8 @@ public class Engine {
     }
 
     public void enemyTurn(Enemy enemy, Player player, Map map){
-        List<Pathfinder.Node> pathFind = new Pathfinder().findPath(map, enemy.getX(), enemy.getY(), player.getX(), player.getY());
-
-        if(pathFind != null && pathFind.size() > 1){
-
-            Pathfinder.Node nextNode = pathFind.get(1);
-
-            int dx = nextNode.getX() - enemy.getX();
-            int dy = nextNode.getY()- enemy.getY();
-
-            enemy.movement(dx, dy, map);
-        }
+        MainBehaviorTree enemyBehaviorTree = new MainBehaviorTree(enemy, player, map);
+        enemyBehaviorTree.tick();
 
     }
 }

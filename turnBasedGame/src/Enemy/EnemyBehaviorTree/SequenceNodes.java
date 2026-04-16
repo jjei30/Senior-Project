@@ -2,7 +2,7 @@ package Enemy.EnemyBehaviorTree;
 
 import java.util.List;
 
-public class SequenceNodes extends Nodes{
+public class SequenceNodes implements Nodes{
     private List<Nodes> children;
 
     public SequenceNodes(List<Nodes> children){

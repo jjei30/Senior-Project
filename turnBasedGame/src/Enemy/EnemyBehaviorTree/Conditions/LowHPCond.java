@@ -3,7 +3,7 @@ import Enemy.Enemy;
 import Enemy.EnemyBehaviorTree.Nodes;
 import Enemy.EnemyBehaviorTree.Stat;
 
-public class LowHPCond extends Nodes {
+public class LowHPCond implements Nodes {
     private Enemy enemy;
 
     public LowHPCond(Enemy enemy){

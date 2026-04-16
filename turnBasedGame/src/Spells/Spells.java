@@ -17,6 +17,11 @@ public class Spells {
         this.power = power;
         this.effectType = effectType;
     }
+
+    public EffectType getEffectType(){
+        return effectType;
+    }
+
     public String getSpellName(){
         return spellName;
     }

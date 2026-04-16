@@ -5,7 +5,7 @@ import Player.Player;
 import Enemy.EnemyBehaviorTree.Nodes;
 import Enemy.EnemyBehaviorTree.Stat;
 
-public class Attack extends Nodes {
+public class Attack implements Nodes {
     private Enemy enemy;
     private Player player;
 

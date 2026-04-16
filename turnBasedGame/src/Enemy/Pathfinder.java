@@ -93,7 +93,7 @@ public class Pathfinder {
 
     //manhattan distance heuristic, measuring the total number of grid units an agent is away from the goal within the grid, using the formula d = |x1-x2|+|y1-y2|
     private static int manhattanHeuristic(int currentX, int currentY, int goalX, int goalY){
-        int d = Math.abs(currentX - goalX) + (currentY - goalY);
+        int d = Math.abs(currentX - goalX) + Math.abs(currentY - goalY);
         return d;
     }
 
