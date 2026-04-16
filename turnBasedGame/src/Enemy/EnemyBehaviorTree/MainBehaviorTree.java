@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Arrays;  
 import Enemy.EnemyBehaviorTree.Actions.Attack;
 import Enemy.EnemyBehaviorTree.Actions.Heal;
-import Enemy.EnemyBehaviorTree.Conditions.LowHPCond;
 import Enemy.Pathfinder;
 
 

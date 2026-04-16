@@ -28,8 +28,6 @@ public class Enemy {
     private List<Spells> spellsLists = new ArrayList<>();
     private List<Item> inventoryItems = new ArrayList<>();
     
-    private Player player;
-
     public Enemy(){
         this.health = maxHealth;
         this.mana = maxMana;

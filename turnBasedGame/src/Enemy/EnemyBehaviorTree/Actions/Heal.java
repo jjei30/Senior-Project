@@ -1,6 +1,5 @@
 package Enemy.EnemyBehaviorTree.Actions;
 import Enemy.Enemy;
-import Player.Player;
 
 import Enemy.EnemyBehaviorTree.Nodes;
 import Enemy.EnemyBehaviorTree.Stat;

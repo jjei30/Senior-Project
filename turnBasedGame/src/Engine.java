@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import Enemy.Enemy;
-import Enemy.Pathfinder;
 import Enemy.EnemyBehaviorTree.MainBehaviorTree;
 import Map.Map;
 import Player.Player;
