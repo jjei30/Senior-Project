@@ -44,7 +44,7 @@ public class Effects {
         }
     }
 
-    public void applyPlayerEffect(Player player, Enemy enemy){
+    public void applyPlayerEffect(Player player){
         switch(effectType){
             case POISON:
                 player.takeDamage(amount + intelligence);

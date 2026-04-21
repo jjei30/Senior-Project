@@ -31,8 +31,6 @@ public class Player {
     private List<Spells> spellsLists = new ArrayList<>();
     private List<Item> inventoryItems = new ArrayList<>();
 
-    private Enemy enemy = new Enemy();
-
 
 
     //for starting position
@@ -220,7 +218,7 @@ public class Player {
         Iterator<Effects> iterator = effects.iterator();
         while(iterator.hasNext()){
             Effects effect = iterator.next();
-            effect.applyPlayerEffect(this, enemy);
+            effect.applyPlayerEffect(this);
             effect.durationTimer();
 
             if(effect.effectExpired()){

@@ -13,13 +13,11 @@ public class Combat {
 
     public void combatMode(Player player, Enemy enemy){
         while(player.isPlayerAlive() && enemy.isEnemyAlive() && escaped == false){
-            System.out.println("Effects on enemy: " + enemy.getEffects().size());
-            System.out.println("Effects on player: " + player.getEffects().size());
-            player.effectApply();
-            enemy.effectApply();
             combatUI(player, enemy);
             playerTurn(player, enemy);
+            player.effectApply();
             enemyTurn(player, enemy);
+            enemy.effectApply();
         }
     }
 
@@ -50,9 +48,15 @@ public class Combat {
                 for(int i = 0; i < spells.size(); i++){
                     System.out.println((i+1) + ". " + spells.get(i).getSpellName() + " Mana Cost: " + spells.get(i).getManaCost());
                 }
-                int spellChoice = scanner.nextInt();
-                Spells selectedSpell = spells.get(spellChoice);
-                selectedSpell.playerSpellCast(player, enemy);
+                String spellInput = scanner.nextLine();
+                int spellChoice = Integer.parseInt(spellInput) - 1;
+                if(spellChoice < 0 || spellChoice >= spells.size()){
+                    System.out.println("Invalid spell choice!");
+                    break;
+                }else{
+                    Spells selectedSpell = spells.get(spellChoice);
+                    selectedSpell.playerSpellCast(player, enemy);
+                }
                 pause(1000);
                 break;
             case "3":
