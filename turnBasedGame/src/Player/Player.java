@@ -7,11 +7,8 @@ import Effects.Effects;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import Spells.SpellsList;
-import Spells.Spells;
-import Items.Item;
-import Items.GameItem;
-
+import Spells.*;
+import Items.*;
 import Enemy.Enemy;
 
 public class Player {
@@ -30,6 +27,9 @@ public class Player {
     private List<Effects> effects = new ArrayList<>();
     private List<Spells> spellsLists = new ArrayList<>();
     private List<Item> inventoryItems = new ArrayList<>();
+    private Weapon equippedWeap = null;
+    private int weaponTurnLeft = 0;
+    private boolean isFrozen = false;
 
 
 
@@ -44,6 +44,7 @@ public class Player {
         inventoryItems.add(GameItem.woodenStaff());
         inventoryItems.add(GameItem.smallHealthPotion());
         inventoryItems.add(GameItem.mediumManaPotion());
+        inventoryItems.add(GameItem.climbingGear());
     }
     
 
@@ -86,8 +87,10 @@ public class Player {
         this.x = x;
         this.y = y;
     }
+    public boolean isFrozenStatus(){
+        return effects.stream().anyMatch(e -> e.isFrozen());
+    }
 
-    //player movement methods
     public void movement(int dx, int dy, int mapSize){
         int moveX = x +dx;
         int moveY = y +dy;
@@ -111,14 +114,16 @@ public class Player {
         if(health < 0){
             health = 0;
         }
-
-        System.out.println("You took " + damage + " damage!");
     }
 
     //healing function will go here as it will depend if the player has the potion
 
     public void manaDrain(int drain){
         mana -= drain;
+    }
+
+    public void manaRestore(int restore){
+        mana += restore;
     }
 
     public void lvlUp(){
@@ -207,7 +212,7 @@ public class Player {
         int dmg = 15 + strength;
         enemy.takeDamage(dmg);
 
-        System.out.println("Enemy attacks, he does " + dmg + " damage!");
+        System.out.println("You attack, you did " + dmg + " damage!");
     }
 
     public void effectAdd(Effects effect){
@@ -248,6 +253,52 @@ public class Player {
 
     public List<Item> getInvItems(){
         return inventoryItems;
+    }
+
+    public Gear getGearByType(boolean mountain){
+        for(Item item : inventoryItems){
+            if(item instanceof Gear){
+                Gear gear = (Gear) item;
+                if(mountain && gear.getMountainPossible()){
+                    return gear;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void unequipWeap(){
+        if(equippedWeap != null){
+            strength-=equippedWeap.getDmg();
+            System.out.println(equippedWeap.getName() + " has been removed!");
+            equippedWeap = null;
+            weaponTurnLeft = 0;
+        }
+    }
+
+    public void equipWeap(Weapon weapon){
+        if(equippedWeap != null){
+            unequipWeap();
+        }
+        equippedWeap = weapon;
+        weaponTurnLeft = 5;
+        strength += weapon.getDmg();
+        inventoryItems.remove(weapon);
+        System.out.println("You have equipped " + weapon.getName() + " your strength is now boosted for 5 turns!");
+    }
+
+    public void weaponTurnTime(){
+        if(equippedWeap != null){
+            weaponTurnLeft--;
+            System.out.println("Weapon turn left: " + weaponTurnLeft);
+            if(weaponTurnLeft <= 0){
+                unequipWeap();
+            }
+        }
+    }
+
+    public Weapon getEquippedWeapon(){
+        return equippedWeap;
     }
     
 }

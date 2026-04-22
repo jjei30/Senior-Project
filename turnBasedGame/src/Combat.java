@@ -13,11 +13,12 @@ public class Combat {
 
     public void combatMode(Player player, Enemy enemy){
         while(player.isPlayerAlive() && enemy.isEnemyAlive() && escaped == false){
+            player.effectApply();
+            enemy.effectApply();
             combatUI(player, enemy);
             playerTurn(player, enemy);
-            player.effectApply();
+            player.weaponTurnTime();
             enemyTurn(player, enemy);
-            enemy.effectApply();
         }
     }
 
@@ -31,6 +32,10 @@ public class Combat {
     }
 
     private void playerTurn(Player player, Enemy enemy){
+        if(player.isFrozenStatus()){
+            System.out.println("You are frozen and cannot act!");
+            return;
+        }
         System.out.println("[1. Physical Attack] [2. Spell] [3. Item] [4. Escape]");
         System.out.println("---------------------");
         System.out.print("Choose your action: ");
@@ -60,7 +65,9 @@ public class Combat {
                 pause(1000);
                 break;
             case "3":
-                action = "Using an item..."; //will make items soon
+                InventoryMenu inventoryMenu = new InventoryMenu(player, true);
+                inventoryMenu.display();
+                player.weaponTurnTime();
                 pause(1000);
                 break;
             case "4":
@@ -93,8 +100,13 @@ public class Combat {
     private void enemyTurn(Player player, Enemy enemy){
         System.out.println("Enemy is thinking");
         pause(1000);
+        if(enemy.getEffects().stream().anyMatch(e -> e.isFrozen())){
+            System.out.println("Enemy is frozen and cannot act!");
+            return;
+    }
         MainBehaviorTree enemyBehaviorTree = new MainBehaviorTree(enemy, player, null);
         enemyBehaviorTree.tick();
+        player.effectApply();
     }
      //just to add some delay for gaming experience purposes
     private void pause(int milliseconds){

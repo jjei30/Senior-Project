@@ -99,7 +99,7 @@ public class Map{
             int nx = player.getX() + m[0];
             int ny = player.getY() + m[1];
 
-            if(getTile(nx, ny) == dockTile){
+            if(withinBounds(nx, ny) && getTile(nx, ny) == dockTile){
                 return true;
             }
         }
@@ -232,22 +232,28 @@ public class Map{
         }
     }
 
-    public void mapPrint(Player player, Enemy enemy){
+    public void mapPrint(Player player, List<Enemy> enemies){
         for(int x = 0; x < size; x++){
             for(int y=0; y < size; y++){
-
                 if(player.getX() == x && player.getY() == y){
                     System.out.print("@" + " "); //player is displayed as @
-                }else if(enemy.getX() == x && enemy.getY() == y){
-                    System.out.print("#" + " "); //enemy is displayed as #
-                }
-                else{
-                    System.out.print(mapGrid[x][y].iterator().next() + " ");
+                }else{
+                    boolean isEnemy = false;
+                    for(Enemy enemy : enemies){
+                        if(enemy.getX() == x && enemy.getY() == y){
+                        System.out.print("#" + " "); //enemy is displayed as #
+                        isEnemy = true;
+                        break;
+                        }
+                    }
+                    
+                    if(!isEnemy){
+                        System.out.print(mapGrid[x][y].iterator().next() + " ");
+                    }
                 }
             }
-        System.out.println();
+            System.out.println();
         }
-        
     }
 
     public int getMapSize(){

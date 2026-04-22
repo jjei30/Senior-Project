@@ -27,14 +27,9 @@ public class GameItem {
         return largeManaPotion;
     }
     public static Gear climbingGear(){
-        Gear climbingGear = new Gear("Climbing Gear", "Gear that will make you ready to go on top of the roughest of mountains!", 50);
+        Gear climbingGear = new Gear("Climbing Gear", "Gear that will make you ready to go on top of the roughest of mountains!", 50, 5);
         climbingGear.setMountainPossible(true);
         return climbingGear;
-    }
-    public static Gear waterBoots(){
-        Gear waterBoots = new Gear("Water Boots", "Created by a mysterious Engineer, these boots can get someone to walk on any body of water as if it were a normal floor!", 70);
-        waterBoots.setWaterPossible(true);
-        return waterBoots;
     }
     public static Weapon woodenStaff(){
         Weapon woodenStaff = new Weapon("Wooden Staff", "A simple wooden staff, it could still hurt someone", 15, 5);

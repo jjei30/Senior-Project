@@ -1,21 +1,26 @@
 import java.util.Scanner;
 import Enemy.Enemy;
-import Enemy.EnemyBehaviorTree.MainBehaviorTree;
+import Enemy.Pathfinder;
+import Items.Gear;
 import Map.Map;
 import Player.Player;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Engine {
     private Map map;
     private Player player;
     private Scanner scanner;
-    private Enemy enemy;
+    private List<Enemy> enemies = new ArrayList<>();
     private Combat combat;
-    private String gamePopUp;
+    private String gamePopUp = "";
     private int islLevel = 1;
     private boolean fromDock = false;
     private List<Map> islandList = new ArrayList<>();
+    private Random random = new Random();
+    private int enemyRespawnTimer = 0;
+    private static final int respawnTurns = 3;
 
     public Engine(){
        Map firstMap = new Map(10);
@@ -26,11 +31,10 @@ public class Engine {
        islandList.add(firstMap);
        map = firstMap;
        player = new Player();
-       enemy = new Enemy();
        System.out.println("Spawning the Player and Enemies");
        int[] playerSpawnPoint = map.spawnPoint();
        player.setPosition(playerSpawnPoint[0], playerSpawnPoint[1]);
-       spawnEntities();
+       spawnEnemies(islLevel);
        System.out.println("Player and enemies have been spawned");
        scanner = new Scanner(System.in);
        combat = new Combat();
@@ -38,36 +42,94 @@ public class Engine {
 
     boolean inGame = true;
 
-    private void spawnEntities(){
-            int[] enemySpawnPoint;
-            do{
-                enemySpawnPoint = map.spawnPoint();
-            }while(enemySpawnPoint[0] == player.getX() && enemySpawnPoint[1] == player.getY());
+    private boolean isTileOccupied(int x, int y){
+        if(player.getX() == x && player.getY() == y){
+            return true;
+        }
+        for(Enemy enemy : enemies){
+            if(enemy.getX() == x && enemy.getY() == y){
+                return true;
+            }
+        }
+        return false;
+    }
 
-            enemy.setPosition(enemySpawnPoint[0], enemySpawnPoint[1]);
+    private void spawnEnemies(int islLevel){
+            enemies.clear();
+            int count = islLevel <= 2 ? 1 : islLevel - 1;
+            for(int i = 0; i < count; i++){
+                Enemy enemy = new Enemy(islLevel);
+                int[] enemySpawnPoint;
+                do{
+                    enemySpawnPoint = map.spawnPoint();
+                }while(isTileOccupied(enemySpawnPoint[0], enemySpawnPoint[1]));
+                enemy.setPosition(enemySpawnPoint[0], enemySpawnPoint[1]);
+                enemies.add(enemy);
+            }
+    }
+    private Enemy getEnemyAtPos(int x, int y){
+        for(Enemy enemy : enemies){
+            if(enemy.getX() == x && enemy.getY() == y){
+                return enemy;
+            }
+        }
+        return null;
     }
 
     public void gameStart(){
         System.out.println("\n=====Island " + islLevel + "=====");
-        map.mapPrint(player, enemy);
+        map.mapPrint(player, enemies);
         System.out.println("Health: " + player.getHealth() + "/" + player.getMaxHealth() + " | " + "Mana: " + player.getMana() + "/" + player.getMaxMana());
-        System.out.println("Use WASD to move. Q to return to menu.");
+        System.out.println("Use WASD to move. I for Inventory. Q to return to menu.");
         while(inGame && player.isPlayerAlive()){
             playerTurn();
             fromDock = false;
-            isCombat(player, enemy);
+            Enemy encounteredEnemy = getEnemyAtPos(player.getX(), player.getY());
+            if(encounteredEnemy != null){
+                combat.combatMode(player, encounteredEnemy);
+                if(!encounteredEnemy.isEnemyAlive()){
+                    player.expGain(encounteredEnemy.gainXPReward());
+                    enemies.remove(encounteredEnemy);
+                    enemyRespawnTimer = respawnTurns;
+                }
+            }else{
+                enemyTurn();
+                Enemy hunter = getEnemyAtPos(player.getX(), player.getY());
+                if(hunter != null){
+                    combat.combatMode(player, encounteredEnemy);
+                    if(!hunter.isEnemyAlive()){
+                        player.expGain(hunter.gainXPReward());
+                        enemies.remove(hunter);
+                        enemyRespawnTimer = respawnTurns;
+                    }
+                }
+            }
+
+            if(enemies.isEmpty()){
+                if(enemyRespawnTimer > 0){
+                    enemyRespawnTimer--;
+                    System.out.println("An enemy will appear in " + enemyRespawnTimer + " turns");
+                }else{
+                    System.out.println("An enemy has appeared!");
+                    Enemy newEnemy = new Enemy(islLevel);
+                    int[] enemySpawnPoint;
+                    do{
+                        enemySpawnPoint = map.spawnPoint();
+                    }while(isTileOccupied(enemySpawnPoint[0], enemySpawnPoint[1]));
+                    newEnemy.setPosition(enemySpawnPoint[0], enemySpawnPoint[1]);
+                    enemies.add(newEnemy);
+                }
+            }
             if(map.nextToDock(player, Map.Tile.O)){
                 gamePopUp = "Press F to go to the next island with the dock";
             }else if(map.nextToDock(player, Map.Tile.V)){
                 gamePopUp = "Press F to go to return back to the island with the dock";
             }
-            enemyTurn(enemy, player, map);
-            isCombat(player, enemy);
             System.out.println();
-            map.mapPrint(player, enemy);
+            map.mapPrint(player, enemies);
             System.out.println("Health: " + player.getHealth() + "/" + player.getMaxHealth());
             System.out.println(gamePopUp);
-            System.out.println("Use WASD to move. Q to return to menu.");
+            System.out.println("Use WASD to move. I for Inventory. Q to return to menu.");
         }
     }
 
@@ -91,12 +153,9 @@ public class Engine {
             islandList.add(nextMap);
 
             map = nextMap;
-
-            spawnEntities();
-
             player.setPosition(newSpawn[0], newSpawn[1]);
         }
-            //here I will scale the enemy soon
+        spawnEnemies(islLevel);
     }
     public void returnIsland(){
         islLevel--;
@@ -150,6 +209,12 @@ public class Engine {
                         returnIsland();
                         break;
                     }
+                break;
+                case "I":
+                gamePopUp = "------Inventory------";
+                InventoryMenu inventoryMenu = new InventoryMenu(player, false);
+                inventoryMenu.display();
+                break;
                 default:
                     gamePopUp = "------That's not an option------";
                     break;
@@ -168,22 +233,50 @@ public class Engine {
         Map.Tile tile = map.getTile(moveX, moveY);
 
         if(tile == Map.Tile.M){
-            System.out.println("Mountains are blocking your path!"); //when adding items will add something that can pass through the mountains
+            Gear climbingGear = player.getGearByType(true);
+            if(climbingGear != null){
+                climbingGear.useGear();
+                System.out.println("Used climbing gear! [" + climbingGear.getUses() + " uses left]");
+
+                if(climbingGear.isGearBroken()){
+                    player.getInvItems().remove(climbingGear);
+                    System.out.println("Your climbing gear has broken!");
+                }
+                player.movement(dx, dy, map.getMapSize());
+            }else{
+                System.out.println("Mountains are blocking your path!");
+            }
             return;
         }else if(tile == Map.Tile.S){
-            System.out.println("The Waters are blocking your path!"); //Same case as the mountains above
+            System.out.println("The Sea are blocking your path!");
             return;
         }else if(tile == Map.Tile.O){
             return;
         }
-
         player.movement(dx, dy, map.getMapSize());
-
     }
 
-    public void enemyTurn(Enemy enemy, Player player, Map map){
-        MainBehaviorTree enemyBehaviorTree = new MainBehaviorTree(enemy, player, map);
-        enemyBehaviorTree.tick();
-
+    public void enemyTurn(){
+        for(Enemy enemy : enemies){
+            if(enemy.playerInSight(player)){
+                List<Pathfinder.Node> path = new Pathfinder().findPath(map, enemy.getX(), enemy.getY(), player.getX(), player.getY());
+                if(path != null && path.size() > 1){
+                    Pathfinder.Node next = path.get(1);
+                    enemy.movement(next.getX() - enemy.getX(), next.getY() - enemy.getY(), map);
+                }
+            }else{
+                int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}};
+                int[] dir = directions[random.nextInt(4)];
+                int nx = enemy.getX() + dir[0];
+                int ny = enemy.getY() + dir[1];
+                if(nx >= 0 && nx < map.getMapSize() && ny >= 0 && ny < map.getMapSize()){
+                    if(map.getTile(nx, ny) != Map.Tile.M && map.getTile(nx, ny) != Map.Tile.S){
+                        enemy.movement(dir[0], dir[1], map);
+                    }
+                }
+            }
+        }
     }
+
+
 }

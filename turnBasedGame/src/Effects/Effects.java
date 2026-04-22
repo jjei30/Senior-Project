@@ -8,6 +8,7 @@ public class Effects {
     private int duration;
     private int amount;
     private int intelligence;
+    private boolean effectJustAdded = true;
 
     public enum EffectType{
         POISON, BURN, FREEZE, DMG, HEAL
@@ -21,6 +22,11 @@ public class Effects {
     }
 
     public void applyEnemyEffect(Enemy enemy){
+        if(effectJustAdded && effectType != EffectType.FREEZE){
+            effectJustAdded = false;
+            return;
+        }
+        effectJustAdded = false;
         switch(effectType){
             case POISON:
                 enemy.takeDamage(amount + intelligence);
@@ -43,8 +49,17 @@ public class Effects {
                 break;
         }
     }
+    public boolean isFrozen(){
+        return effectType == EffectType.FREEZE;
+    }  
 
     public void applyPlayerEffect(Player player){
+        if(effectJustAdded && effectType != EffectType.FREEZE){
+            effectJustAdded = false;
+            return;
+        }
+        effectJustAdded = false;
+
         switch(effectType){
             case POISON:
                 player.takeDamage(amount + intelligence);
@@ -55,7 +70,7 @@ public class Effects {
                 System.out.println("Player is burning! It deals " + amount + " damage! ");
                 break;
             case FREEZE:
-                //filler
+                System.out.println("Target is frozen and cannot act!");
                 break;
             case DMG:
                 player.takeDamage(amount + intelligence);

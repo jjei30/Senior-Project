@@ -11,7 +11,8 @@ public class SpellsList {
             new Spells("Poison Myst", 5, 10, Effects.EffectType.POISON),
             new Spells("Healing Beam", 5, 20, Effects.EffectType.HEAL),
             new Spells("Flame", 8, 40, Effects.EffectType.BURN),
-            new Spells("Blast", 6, 10, Effects.EffectType.DMG)
+            new Spells("Blast", 6, 10, Effects.EffectType.DMG),
+            new Spells("Freeze", 7, 0, Effects.EffectType.FREEZE)
         )
         );
     }

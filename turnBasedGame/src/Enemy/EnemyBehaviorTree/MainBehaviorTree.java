@@ -32,7 +32,7 @@ public class MainBehaviorTree {
     private boolean isPlayerAdjacent(){
         int dx = Math.abs(enemy.getX() - player.getX());
         int dy = Math.abs(enemy.getY() - player.getY());
-        if(dx + dy == 1){
+        if(dx + dy <= 1){
             return true;
         }else{
             return false;

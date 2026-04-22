@@ -17,23 +17,29 @@ public class Enemy {
     private int x;
     private int y;
     private int health;
-    private int maxHealth = 50;
+    private int maxHealth;
     private int mana;
-    private int maxMana = 10;
+    private int maxMana;
     private int strength;
     private int dexterity;
     private int intelligence;
     private List<Effects> effects = new ArrayList<>();
-    
     private List<Spells> spellsLists = new ArrayList<>();
     private List<Item> inventoryItems = new ArrayList<>();
+    private int sightRange = 3;
+    private int islandLvl;
+    private int xpReward;
     
-    public Enemy(){
+    public Enemy(int islandLvl){
+        this.maxHealth = 50*islandLvl;
         this.health = maxHealth;
+        this.maxMana = 10*islandLvl;
         this.mana = maxMana;
-        this.strength = 0;
-        this.dexterity = 0;
-        this.intelligence = 0;
+        this.strength = islandLvl * 5;
+        this.dexterity = islandLvl * 2;
+        this.intelligence = islandLvl * 2;
+        this.islandLvl = islandLvl;
+        this.xpReward = 100*islandLvl;
         this.spellsLists = SpellsList.getSpells();
         inventoryItems.add(GameItem.smallHealthPotion());
         inventoryItems.add(GameItem.smallManaPotion());
@@ -66,9 +72,21 @@ public class Enemy {
     public int getIntelligence(){
         return intelligence;
     }
+    public int gainXPReward(){
+        return xpReward;
+    }
     public void setPosition(int x, int y){
         this.x = x;
         this.y = y;
+    }
+    public int getIslandLvl(){
+        return islandLvl;
+    }
+
+    public boolean playerInSight(Player player){
+        int dx = Math.abs(x-player.getX());
+        int dy = Math.abs(y-player.getY());
+        return (dx + dy) <= sightRange;
     }
 
     public void movement(int dx, int dy, Map map){
@@ -76,7 +94,7 @@ public class Enemy {
         int moveY = y +dy;
         int mapSize = map.getMapSize();
         if(moveX >= 0 && moveX < mapSize && moveY >= 0 && moveY < mapSize){
-            if(map.getTile(moveX, moveY) != Map.Tile.M || map.getTile(moveX, moveY) != Map.Tile.S){
+            if(map.getTile(moveX, moveY) != Map.Tile.M && map.getTile(moveX, moveY) != Map.Tile.S){
                 x = moveX;
                 y = moveY;
             }
@@ -96,8 +114,6 @@ public class Enemy {
         if(health < 0){
             health = 0;
         }
-
-        System.out.println("Enemy took " + damage + " damage!");
     }
 
     public void attack(Player player){
